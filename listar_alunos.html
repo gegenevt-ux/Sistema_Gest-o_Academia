@@ -1,25 +1,17 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="pt-BR" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Astro v5.13.2" />
-    <title>Sistema de Gestão Academy</title>
-    <link
-      rel="canonical"
-      href="https://getbootstrap.com/docs/5.3/examples/carousel/"
-    />
-    <script src="../assets/js/color-modes.js"></script>
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <meta name="theme-color" content="#712cf9" />
-    <link href="carousel.css" rel="stylesheet" />
+    <meta name="description" content="Sistema de gestão da Titan Fit: cadastro e listagem de alunos e instrutores." />
+    <title>Sistema de Gestão Academia</title>
+    <script src="./assets/js/color-modes.js"></script>
+    <script>document.documentElement.classList.add("js")</script>
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="theme-color" content="#ff6a1a" />
+    <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
+    <link href="./assets/style/carousel.css" rel="stylesheet" />
     <link href="./assets/style/style.css" rel="stylesheet" />
-    <link href="./assets/style/carousel.rtl.css" rel="stylesheet" />
 
   </head>
   <body>
@@ -57,12 +49,12 @@
         type="button"
         aria-expanded="false"
         data-bs-toggle="dropdown"
-        aria-label="Toggle theme (auto)"
+        aria-label="Alternar tema (automático)"
       >
         <svg class="bi my-1 theme-icon-active" aria-hidden="true">
           <use href="#circle-half"></use>
         </svg>
-        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+        <span class="visually-hidden" id="bd-theme-text">Alternar tema</span>
       </button>
       <ul
         class="dropdown-menu dropdown-menu-end shadow"
@@ -78,7 +70,7 @@
             <svg class="bi me-2 opacity-50" aria-hidden="true">
               <use href="#sun-fill"></use>
             </svg>
-            Light
+            Claro
             <svg class="bi ms-auto d-none" aria-hidden="true">
               <use href="#check2"></use>
             </svg>
@@ -94,7 +86,7 @@
             <svg class="bi me-2 opacity-50" aria-hidden="true">
               <use href="#moon-stars-fill"></use>
             </svg>
-            Dark
+            Escuro
             <svg class="bi ms-auto d-none" aria-hidden="true">
               <use href="#check2"></use>
             </svg>
@@ -110,7 +102,7 @@
             <svg class="bi me-2 opacity-50" aria-hidden="true">
               <use href="#circle-half"></use>
             </svg>
-            Auto
+            Automático
             <svg class="bi ms-auto d-none" aria-hidden="true">
               <use href="#check2"></use>
             </svg>
@@ -121,7 +113,7 @@
     <header data-bs-theme="dark">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">Academia dos Solteiros</a>
+          <a class="navbar-brand d-flex align-items-center gap-2" href="Index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -129,14 +121,14 @@
             data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse"
             aria-expanded="false"
-            aria-label="Toggle navigation"
+            aria-label="Abrir menu"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                <a class="nav-link" href="Index.html">Home</a>
               </li>
              <!---Começo do menu dropdown-->
               <li class="nav-item dropdown">
@@ -144,8 +136,8 @@
             Alunos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cadastro_Alunos.html">Cadastro de Alunos</a></li>
-            <li><a class="dropdown-item" href="Listar_Alunos.html">Listar Alunos</a></li>
+            <li><a class="dropdown-item" href="Cadastro_alunos.html">Cadastro de Alunos</a></li>
+            <li><a class="dropdown-item" href="listar_alunos.html">Listar Alunos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -159,8 +151,8 @@
         </li>
 
         <!---Fim do menu dropdown-->
-        <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <form class="d-flex" role="search" id="form-busca">
+        <input class="form-control me-2" type="search" id="campo-busca" placeholder="Buscar aluno ou instrutor" aria-label="Buscar"/>
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
           </div>
@@ -169,55 +161,47 @@
     </header>
     <main>
      
+      <section class="banner-pagina">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Alunos</h1>
+          <p class="lead mb-0">Todos os alunos matriculados na Titan Fit.</p>
+        </div>
+      </section>
       <div class="container marketing">
-        <hr class="featurette-divider" />
-        <h2>Listagem dos Alunos</h2>
-        <br>
-        <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Email</th>
-      <th scope="col">Telefone</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mario Chaves</td>
-      <td>Marius@shfgjhfj.com</td>
-      <td>904298435</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Bella swan</td>
-      <td>Tbeliuu@rhgejrgeu.com</td>
-      <td>654274873 </td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Jonas brothes</td>
-      <td>BrothesJonas@djfhweifge.com</td>
-      <td>765287462 </td>
-    </tr>
-  </tbody>
-</table>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <p class="text-body-secondary mb-0" id="contador"></p>
+          <a href="Cadastro_alunos.html" class="btn btn-primary">Novo aluno</a>
+        </div>
+        <br />
+        <div class="table-responsive cartao-form reveal">
+          <table class="table table-striped align-middle" id="tabela" data-tipo="alunos">
+            <thead>
+              <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Email</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">Plano</th>
+              <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p id="lista-vazia" class="text-body-secondary d-none">Nenhum registro encontrado.</p>
       </div>
-      <br>
+      <br />
       <!-- /.container -->
       <!-- FOOTER -->
       <footer class="container">
-        <p class="float-end"><a href="#">Back to top</a></p>
+        <p class="float-end"><a href="#">Voltar ao topo</a></p>
         <p>
-          &copy; 2017–2025 Company, Inc. &middot;
-          <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+          &copy; 2026 Titan Fit
         </p>
       </footer>
     </main>
-    <script
-      src="../assets/dist/js/bootstrap.bundle.min.js"
-      class="astro-vvvwv3sm"
-    ></script>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/app.js"></script>
   </body>
 </html>

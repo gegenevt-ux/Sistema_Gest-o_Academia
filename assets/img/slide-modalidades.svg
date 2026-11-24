@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1d2e"/><stop offset="1" stop-color="#0f3a4a"/></linearGradient>
+    <radialGradient id="glow" cx=".28" cy=".55" r=".45"><stop offset="0" stop-color="#22d3c5" stop-opacity=".4"/><stop offset="1" stop-color="#22d3c5" stop-opacity="0"/></radialGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb347"/><stop offset="1" stop-color="#ff5e1a"/></linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#0e9f95"/></linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4256"/><stop offset="1" stop-color="#171b25"/></linearGradient>
+  </defs>
+  <rect width="1600" height="700" fill="url(#bg)"/>
+  <rect width="1600" height="700" fill="url(#glow)"/>
+  <g fill="none" stroke="#5eead4" stroke-opacity=".08" stroke-width="2">
+    <circle cx="440" cy="380" r="220"/><circle cx="440" cy="380" r="300"/><circle cx="440" cy="380" r="380"/>
+  </g>
+  <ellipse cx="440" cy="590" rx="360" ry="22" fill="#000" opacity=".4"/>
+  <!-- argolas -->
+  <g stroke="#cbd5e1" stroke-width="4"><path d="M250 0V190"/><path d="M330 0V190"/></g>
+  <g fill="none" stroke="url(#hot)" stroke-width="14"><circle cx="250" cy="230" r="38"/><circle cx="330" cy="230" r="38"/></g>
+  <!-- kettlebell -->
+  <g transform="translate(470 330)">
+    <path d="M-55 0a55 55 0 0 1 110 0" fill="none" stroke="url(#dark)" stroke-width="26"/>
+    <circle cx="0" cy="120" r="125" fill="url(#dark)"/>
+    <circle cx="0" cy="120" r="125" fill="none" stroke="url(#teal)" stroke-width="6"/>
+    <text x="0" y="145" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="72" fill="url(#teal)">24</text>
+  </g>
+  <!-- halter -->
+  <g transform="translate(250 510) rotate(-12)">
+    <rect x="-120" y="-10" width="240" height="20" rx="10" fill="#cbd5e1"/>
+    <rect x="-150" y="-50" width="44" height="100" rx="12" fill="url(#hot)"/>
+    <rect x="106" y="-50" width="44" height="100" rx="12" fill="url(#hot)"/>
+  </g>
+</svg>

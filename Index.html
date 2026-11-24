@@ -1,25 +1,17 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="pt-BR" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Astro v5.13.2" />
-    <title>Sistema de Gestão Academy</title>
-    <link
-      rel="canonical"
-      href="https://getbootstrap.com/docs/5.3/examples/carousel/"
-    />
-    <script src="../assets/js/color-modes.js"></script>
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <meta name="theme-color" content="#712cf9" />
-    <link href="carousel.css" rel="stylesheet" />
+    <meta name="description" content="Sistema de gestão da Titan Fit: cadastro e listagem de alunos e instrutores." />
+    <title>Sistema de Gestão Academia</title>
+    <script src="./assets/js/color-modes.js"></script>
+    <script>document.documentElement.classList.add("js")</script>
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="theme-color" content="#ff6a1a" />
+    <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
+    <link href="./assets/style/carousel.css" rel="stylesheet" />
     <link href="./assets/style/style.css" rel="stylesheet" />
-    <link href="./assets/style/carousel.rtl.css" rel="stylesheet" />
 
   </head>
   <body>
@@ -57,12 +49,12 @@
         type="button"
         aria-expanded="false"
         data-bs-toggle="dropdown"
-        aria-label="Toggle theme (auto)"
+        aria-label="Alternar tema (automático)"
       >
         <svg class="bi my-1 theme-icon-active" aria-hidden="true">
           <use href="#circle-half"></use>
         </svg>
-        <span class="visually-hidden" id="bd-theme-text">Academia dos Solteiros</span>
+        <span class="visually-hidden" id="bd-theme-text">Alternar tema</span>
       </button>
       <ul
         class="dropdown-menu dropdown-menu-end shadow"
@@ -78,7 +70,7 @@
             <svg class="bi me-2 opacity-50" aria-hidden="true">
               <use href="#sun-fill"></use>
             </svg>
-            Light
+            Claro
             <svg class="bi ms-auto d-none" aria-hidden="true">
               <use href="#check2"></use>
             </svg>
@@ -94,7 +86,7 @@
             <svg class="bi me-2 opacity-50" aria-hidden="true">
               <use href="#moon-stars-fill"></use>
             </svg>
-            Dark
+            Escuro
             <svg class="bi ms-auto d-none" aria-hidden="true">
               <use href="#check2"></use>
             </svg>
@@ -110,7 +102,7 @@
             <svg class="bi me-2 opacity-50" aria-hidden="true">
               <use href="#circle-half"></use>
             </svg>
-            Auto
+            Automático
             <svg class="bi ms-auto d-none" aria-hidden="true">
               <use href="#check2"></use>
             </svg>
@@ -121,7 +113,7 @@
     <header data-bs-theme="dark">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="Index.html">Academia dos Solteiros</a>
+          <a class="navbar-brand d-flex align-items-center gap-2" href="Index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -129,14 +121,14 @@
             data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse"
             aria-expanded="false"
-            aria-label="Toggle navigation"
+            aria-label="Abrir menu"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="Index.html">Home</a>
               </li>
              <!---Começo do menu dropdown-->
               <li class="nav-item dropdown">
@@ -144,8 +136,8 @@
             Alunos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cadastro_Alunos.html">Cadastro de Alunos</a></li>
-            <li><a class="dropdown-item" href="Listar_Alunos.html">Listar Alunos</a></li>
+            <li><a class="dropdown-item" href="Cadastro_alunos.html">Cadastro de Alunos</a></li>
+            <li><a class="dropdown-item" href="listar_alunos.html">Listar Alunos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -159,8 +151,8 @@
         </li>
 
         <!---Fim do menu dropdown-->
-        <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <form class="d-flex" role="search" id="form-busca">
+        <input class="form-control me-2" type="search" id="campo-busca" placeholder="Buscar aluno ou instrutor" aria-label="Buscar"/>
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
           </div>
@@ -193,80 +185,41 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <svg
-              aria-hidden="true"
-              class="bd-placeholder-img"
-              height="100%"
-              preserveAspectRatio="xMidYMid slice"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+            <img src="./assets/img/slide-forca.svg" class="carousel-img" alt="Barra olímpica com anilhas" />
             <div class="container">
               <div class="carousel-caption text-start">
-                <h1>Academia dos Solteiros</h1>
+                <h1>Titan Fit</h1>
                 <p class="opacity-75">
-                  A Academia onde voce não vai precisar ver casais na academia , onde focamos na saude e no bem estar dos nossos alunos
+                  A academia onde você não vai precisar ver casais treinando, onde focamos na saúde e no bem-estar dos nossos alunos.
                 </p>
                 <p>
-                  <a class="btn btn-lg btn-primary" href="#">Ver mais</a>
+                  <a class="btn btn-lg btn-primary btn-pulso" href="Cadastro_alunos.html">Matricule-se</a>
                 </p>
               </div>
             </div>
           </div>
           <div class="carousel-item">
-            <svg
-              aria-hidden="true"
-              class="bd-placeholder-img"
-              height="100%"
-              preserveAspectRatio="xMidYMid slice"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+            <img src="./assets/img/slide-yoga.svg" class="carousel-img" alt="Pôr do sol sobre montanhas com uma flor de lótus" />
             <div class="container">
               <div class="carousel-caption">
                 <h1>Yoga day</h1>
                 <p>
-                  Vem com a gente, aqui e onde descansamos a mente, corpo e sua vitalidade. 
+                  Vem com a gente: aqui é onde descansamos a mente, o corpo e renovamos a vitalidade.
                 </p>
-                <p><a class="btn btn-lg btn-primary" href="#">Saiba mais</a></p>
+                <p><a class="btn btn-lg btn-primary" href="Cadastro_alunos.html">Quero participar</a></p>
               </div>
             </div>
           </div>
           <div class="carousel-item">
-            <svg
-              aria-hidden="true"
-              class="bd-placeholder-img"
-              height="100%"
-              preserveAspectRatio="xMidYMid slice"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+            <img src="./assets/img/slide-modalidades.svg" class="carousel-img" alt="Kettlebell, halter e argolas de ginástica" />
             <div class="container">
               <div class="carousel-caption text-end">
-                <h1>Temos diversas Modalidades.</h1>
+                <h1>Temos diversas modalidades.</h1>
                 <p>
-                  Aqui fazemos de tudo e mais um pouco, para garantir a sua saude e para os marombeiros, temos diversas maquinas de musculaçãp.
+                  Aqui fazemos de tudo e mais um pouco para garantir a sua saúde. E, para os marombeiros, temos diversas máquinas de musculação.
                 </p>
                 <p>
-                  <a class="btn btn-lg btn-primary" href="#">Explore mais</a>
+                  <a class="btn btn-lg btn-primary" href="listar_Instrutores.html">Conheça os instrutores</a>
                 </p>
               </div>
             </div>
@@ -279,7 +232,7 @@
           data-bs-slide="prev"
         >
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+          <span class="visually-hidden">Anterior</span>
         </button>
         <button
           class="carousel-control-next"
@@ -288,91 +241,45 @@
           data-bs-slide="next"
         >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+          <span class="visually-hidden">Próximo</span>
         </button>
       </div>
-      <img src="..." class="img-fluid" alt="...">
       <!-- Marketing messaging and featurettes
   ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
       <div class="container marketing">
         <!-- Three columns of text below the carousel -->
         <div class="row">
-          <div class="col-lg-4">
-            <svg
-              aria-label="Placeholder"
-              class="bd-placeholder-img rounded-circle"
-              height="140"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="140"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+          <div class="col-lg-4 reveal">
+            <img src="./assets/img/icon-calistenia.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Calistenia" />
             <h2 class="fw-normal">Calistenia</h2>
             <p>
-              aqui é so para aqueles que não gostam de pegar pesado.
+              Aqui é só para aqueles que não gostam de pegar pesado.
             </p>
             <p>
-              <a class="btn btn-secondary" href="#">View details &raquo;</a>
+              <a class="btn btn-secondary" href="Cadastro_alunos.html">Matricule-se &raquo;</a>
             </p>
           </div>
           <!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <svg
-              aria-label="Placeholder"
-              class="bd-placeholder-img rounded-circle"
-              height="140"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="140"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+          <div class="col-lg-4 reveal">
+            <img src="./assets/img/icon-musculacao.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Musculação" />
             <h2 class="fw-normal">Musculação</h2>
             <p>
-              Para os marombeiros, so digo uma coisa. Aqui voce não passa sufoco.
+              Para os marombeiros, só digo uma coisa: aqui você não passa sufoco.
             </p>
             <p>
-              <a class="btn btn-secondary" href="#">View details &raquo;</a>
+              <a class="btn btn-secondary" href="listar_Instrutores.html">Ver instrutores &raquo;</a>
             </p>
           </div>
           <!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <svg
-              aria-label="Placeholder"
-              class="bd-placeholder-img rounded-circle"
-              height="140"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="140"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+          <div class="col-lg-4 reveal">
+            <img src="./assets/img/icon-outras.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Outras modalidades" />
             <h2 class="fw-normal">Outras</h2>
             <p>
-              quer explorar outras modalidades? entre em contato com a gente.
+              Quer explorar outras modalidades? Entre em contato com a gente.
             </p>
             <p>
-              <a class="btn btn-secondary" href="#">Contato &raquo;</a>
+              <a class="btn btn-secondary" href="Cadastro_alunos.html">Quero conhecer &raquo;</a>
             </p>
           </div>
           <!-- /.col-lg-4 -->
@@ -380,103 +287,48 @@
         <!-- /.row -->
         <!-- START THE FEATURETTES -->
         <hr class="featurette-divider" />
-        <div class="row featurette">
+        <div class="row featurette reveal">
           <div class="col-md-7">
             <h2 class="featurette-heading fw-normal lh-1">
-              Pode vim Tranquilo!
-              <span class="text-body-secondary">QUer sossego? aqui voce consegue.</span>
+              Pode vir tranquilo!
+              <span class="text-body-secondary">Quer sossego? Aqui você consegue.</span>
             </h2>
             <p class="lead">
-              Ta cansado de ver os casais a academia? aqui voce vai ta livre, so aceitamos solteiros.
+              Tá cansado de ver casais na academia? Aqui você vai estar livre: só aceitamos solteiros.
             </p>
           </div>
           <div class="col-md-5">
-            <svg
-              aria-label="Placeholder: 500x500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="500"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
-            </svg>
+            <img src="./assets/img/destaque-tranquilo.svg" class="featurette-image img-fluid mx-auto d-block imagem-destaque" width="500" height="500" alt="Fones de ouvido sobre um banco, numa noite tranquila" />
           </div>
         </div>
         <hr class="featurette-divider" />
-        <div class="row featurette">
+        <div class="row featurette reveal">
           <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading fw-normal lh-1">
-
-              
-              <span class="text-body-secondary">QUer sossego? aqui voce consegue.</span>
+              Espaço exclusivo.
+              <span class="text-body-secondary">Treine no seu ritmo.</span>
             </h2>
             <p class="lead">
-              quer alugar um espaço so para voce? pode vim.
+              Quer alugar um espaço só para você? Pode vir.
             </p>
           </div>
           <div class="col-md-5 order-md-1">
-            <svg
-              aria-label="Placeholder: 500x500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="500"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
-            </svg>
+            <img src="./assets/img/destaque-exclusivo.svg" class="featurette-image img-fluid mx-auto d-block imagem-destaque" width="500" height="500" alt="Porta de sala VIP iluminada" />
           </div>
         </div>
         <hr class="featurette-divider" />
-        <div class="row featurette">
+        <div class="row featurette reveal">
           <div class="col-md-7">
             <h2 class="featurette-heading fw-normal lh-1">
               Posso ser personal trainer?
-              <span class="text-body-secondary">Claro</span>
+              <span class="text-body-secondary">Claro!</span>
             </h2>
             <p class="lead">
-              Pode se cadastrar ali na nossa aba de navegação, e fazer parte ad nossa equipe.
+              Faça seu cadastro em <a href="Cadastro_Instrutores.html">Cadastro de Instrutores</a> e venha fazer parte da nossa equipe.
             </p>
           </div>
           <div class="col-md-5">
-            <svg
-              aria-label="Placeholder: 500x500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="500"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
-            </svg>
+            <img src="./assets/img/destaque-personal.svg" class="featurette-image img-fluid mx-auto d-block imagem-destaque" width="500" height="500" alt="Prancheta de treino e cronômetro" />
           </div>
         </div>
         <hr class="featurette-divider" />
@@ -485,16 +337,13 @@
       <!-- /.container -->
       <!-- FOOTER -->
       <footer class="container">
-        <p class="float-end"><a href="#">Back to top</a></p>
+        <p class="float-end"><a href="#">Voltar ao topo</a></p>
         <p>
-          &copy; 2017–2025 Company, Inc. &middot;
-          <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+          &copy; 2026 Titan Fit
         </p>
       </footer>
     </main>
-    <script
-      src="../assets/dist/js/bootstrap.bundle.min.js"
-      class="astro-vvvwv3sm"
-    ></script>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/app.js"></script>
   </body>
 </html>
