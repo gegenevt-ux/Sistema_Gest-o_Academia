@@ -58,7 +58,7 @@ Tudo é feito com **HTML, CSS, Bootstrap 5 e JavaScript puro**, sem servidor, e 
 - Login e **conta de demonstração**, para conhecer o app sem se cadastrar.
 
 ### App do aluno
-- **Hoje:** treino do dia em divisão ABC, sequência de dias seguidos 🔥, semana marcada e histórico.
+- **Hoje:** treino do dia em divisão ABC, sequência de dias seguidos, semana marcada e histórico.
 - **Treino em andamento:** o aluno toca em cada série e o **timer de descanso** começa sozinho, com aviso visual, sonoro, por vibração e para leitores de tela. No fim, tem comemoração. Se a página fechar, o treino continua de onde parou.
 - **Treinos:** fichas A, B e C montadas de acordo com o objetivo (hipertrofia, emagrecimento ou condicionamento) e o nível.
 - **Progresso:** gráfico de treinos por semana e evolução do peso.
@@ -73,6 +73,7 @@ Tudo é feito com **HTML, CSS, Bootstrap 5 e JavaScript puro**, sem servidor, e 
 ### Visual
 - Ilustrações próprias em SVG, identidade em laranja e animações suaves.
 - Tema claro, escuro ou automático.
+- Ícones do [Bootstrap Icons](https://icons.getbootstrap.com/) (licença MIT).
 
 ## Telas
 
