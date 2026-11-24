@@ -5,16 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Titan Fit: academia com app de treino para os alunos." />
     <title>Cadastrar instrutor | Gestão Titan Fit</title>
-    <script src="./assets/js/color-modes.js"></script>
-    <script>document.documentElement.classList.add("js")</script>
+    <script src="./assets/js/color-modes.js?v=20261124b"></script>
+    <script>document.documentElement.classList.add("js");try{var f=+localStorage.getItem("academia_fonte")||0;if(f)document.documentElement.style.fontSize=(100+f*12.5)+"%";if(localStorage.getItem("academia_alto_contraste")==="1")document.documentElement.classList.add("alto-contraste")}catch(e){}</script>
     <script>try { if (sessionStorage.getItem("academia_sessao_gestao") !== "ok") location.replace("gestao.html") } catch (e) { location.replace("gestao.html") }</script>
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#ff6a1a" />
     <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
-    <link href="./assets/style/carousel.css" rel="stylesheet" />
-    <link href="./assets/style/style.css" rel="stylesheet" />
+    <link href="./assets/style/carousel.css?v=20261124b" rel="stylesheet" />
+    <link href="./assets/style/style.css?v=20261124b" rel="stylesheet" />
   </head>
   <body>
+    <div class="barra-acessibilidade" role="region" aria-label="Recursos de acessibilidade">
+      <div class="container-fluid d-flex flex-wrap justify-content-between align-items-center gap-1">
+        <ul class="atalhos">
+          <li><a href="#conteudo" accesskey="1">Ir para o conteúdo <span aria-hidden="true">[1]</span></a></li>
+          <li><a href="#menu-principal" accesskey="2">Ir para o menu <span aria-hidden="true">[2]</span></a></li>
+          <li><a href="#rodape" accesskey="3">Ir para o rodapé <span aria-hidden="true">[3]</span></a></li>
+        </ul>
+        <ul class="ajustes">
+          <li><a href="acessibilidade.html">Acessibilidade</a></li>
+          <li><button type="button" data-fonte="1">A+<span class="visually-hidden"> (aumentar o texto)</span></button></li>
+          <li><button type="button" data-fonte="-1">A&minus;<span class="visually-hidden"> (diminuir o texto)</span></button></li>
+          <li><button type="button" data-fonte="0">A<span class="visually-hidden"> (tamanho padrão do texto)</span></button></li>
+          <li><button type="button" data-alto-contraste aria-pressed="false">Alto contraste</button></li>
+        </ul>
+      </div>
+    </div>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path
@@ -112,7 +128,7 @@
     </div>
     
     <header data-bs-theme="dark">
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <nav id="menu-principal" aria-label="Menu principal" class="navbar navbar-expand-md navbar-dark sticky-top bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a><span class="badge text-bg-warning me-3">Gestão</span>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
@@ -132,14 +148,14 @@
             </ul>
             <form class="d-flex me-2" role="search" id="form-busca">
               <input class="form-control me-2" type="search" id="campo-busca" placeholder="Buscar aluno ou instrutor" aria-label="Buscar" />
-              <button class="btn btn-outline-success" type="submit">Buscar</button>
+              <button class="btn btn-outline-light" type="submit">Buscar</button>
             </form>
             <button type="button" class="btn btn-outline-light" data-sair-gestao>Sair</button>
           </div>
         </div>
       </nav>
     </header>
-    <main>
+    <main id="conteudo" tabindex="-1">
       <section class="banner-pagina">
         <div class="container">
           <h1 class="display-5 fw-bold">Cadastro do Instrutor</h1>
@@ -193,12 +209,13 @@
       <br />
       
       <!-- FOOTER -->
-      <footer class="container">
-        <p class="float-end"><a href="#">Voltar ao topo</a></p>
-        <p>&copy; 2026 Titan Fit &middot; <a href="gestao.html" class="link-secondary">Área da academia</a></p>
+      <footer class="container rodape" id="rodape">
+        <p class="float-end"><a href="#conteudo">Voltar ao topo</a></p>
+        <p class="mb-1">&copy; 2026 Titan Fit &middot; <a href="privacidade.html">Política de privacidade</a> &middot; <a href="termos.html">Termos de uso</a> &middot; <a href="acessibilidade.html">Acessibilidade</a> &middot; <a href="gestao.html">Área da academia</a></p>
+        <p class="small text-body-secondary mb-0">Projeto acadêmico: a Titan Fit é uma academia fictícia, criada para fins de estudo. Preços e planos são ilustrativos.</p>
       </footer>
     </main>
     <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/app.js?v=20261124b"></script>
   </body>
 </html>

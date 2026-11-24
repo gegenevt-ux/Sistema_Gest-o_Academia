@@ -89,13 +89,40 @@
     return total
   }
 
+  // Mensagens para leitores de tela
+  function anunciar (texto) {
+    const regiao = document.getElementById('anuncio')
+    if (!regiao) return
+    regiao.textContent = ''
+    setTimeout(() => { regiao.textContent = texto }, 50)
+  }
+
+  // Sobreposições (descanso e comemoração): o resto da página fica inativo e o foco volta depois.
+  let focoAnterior = null
+  function abrirSobreposicao (el, focar) {
+    focoAnterior = document.activeElement
+    el.classList.remove('d-none')
+    document.querySelectorAll('.app-topo, main, .app-nav, .barra-acessibilidade').forEach(x => x.setAttribute('inert', ''))
+    if (focar) focar.focus()
+  }
+  function fecharSobreposicao (el) {
+    el.classList.add('d-none')
+    document.querySelectorAll('[inert]').forEach(x => x.removeAttribute('inert'))
+    if (focoAnterior && document.contains(focoAnterior)) focoAnterior.focus()
+    focoAnterior = null
+  }
+
   // ---------- Navegação entre telas ----------
   const telas = document.querySelectorAll('.app-tela')
   const botoesNav = document.querySelectorAll('.app-nav [data-ir]')
 
+  let primeiraTela = true
   function irPara (nome) {
     telas.forEach(t => t.classList.toggle('d-none', t.dataset.tela !== nome))
-    botoesNav.forEach(b => b.classList.toggle('ativo', b.dataset.ir === nome))
+    botoesNav.forEach(b => {
+      b.classList.toggle('ativo', b.dataset.ir === nome)
+      if (b.dataset.ir === nome) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current')
+    })
     document.querySelector('.app-nav').classList.toggle('d-none', nome === 'execucao')
     document.body.classList.toggle('executando', nome === 'execucao')
     window.scrollTo(0, 0)
@@ -105,6 +132,11 @@
     if (nome === 'treinos') desenharTreinos()
     if (nome === 'progresso') desenharProgresso()
     if (nome === 'perfil') desenharPerfil()
+    // Leva o foco ao título da tela (o leitor de tela anuncia onde a pessoa está).
+    const titulo = atual && atual.querySelector('[data-titulo-tela]')
+    if (titulo && !primeiraTela) titulo.focus({ preventScroll: true })
+    primeiraTela = false
+    document.title = `${{ hoje: 'Hoje', execucao: 'Treino em andamento', treinos: 'Meus treinos', progresso: 'Progresso', perfil: 'Perfil' }[nome]} | Titan Fit`
   }
   botoesNav.forEach(b => b.addEventListener('click', () => irPara(b.dataset.ir)))
 
@@ -220,7 +252,8 @@
         b.type = 'button'
         b.className = 'serie' + (s < andamento.feitas[i] ? ' feita' : '')
         b.textContent = s < andamento.feitas[i] ? '✓' : String(s + 1)
-        b.setAttribute('aria-label', `${ex.nome}, série ${s + 1}${s < andamento.feitas[i] ? ', feita' : ''}`)
+        b.setAttribute('aria-label', `${ex.nome}, série ${s + 1} de ${ex.series}`)
+        b.setAttribute('aria-pressed', String(s < andamento.feitas[i]))
         b.addEventListener('click', () => marcarSerie(i, s, ficha))
         series.appendChild(b)
       }
@@ -239,7 +272,10 @@
   function atualizarProgresso (ficha) {
     const total = ficha.exercicios.reduce((s, e) => s + e.series, 0)
     const feitas = dados.emAndamento.feitas.reduce((s, n) => s + n, 0)
-    document.getElementById('exec-progresso').style.width = `${(feitas / total) * 100}%`
+    const pct = Math.round((feitas / total) * 100)
+    document.getElementById('exec-progresso').style.width = `${pct}%`
+    const barra = document.getElementById('exec-progresso-barra')
+    if (barra) { barra.setAttribute('aria-valuenow', String(pct)); barra.setAttribute('aria-valuetext', `${feitas} de ${total} séries`) }
     return { total, feitas }
   }
 
@@ -250,7 +286,10 @@
     andamento.feitas[i] = desmarcar ? s : s + 1
     guardar()
     desenharExecucao()
-    if (desmarcar) return
+    const botaoAtual = document.querySelectorAll('.cartao-exercicio')[i]?.querySelectorAll('.serie')[s]
+    if (botaoAtual) botaoAtual.focus({ preventScroll: true })
+    if (desmarcar) { anunciar(`Série ${s + 1} de ${ex.nome} desmarcada.`); return }
+    anunciar(`Série ${s + 1} de ${ex.nome} concluída.`)
     if (navigator.vibrate) navigator.vibrate(30)
     const { total, feitas } = atualizarProgresso(ficha)
     if (feitas >= total) { finalizar(); return }
@@ -276,8 +315,8 @@
     pararDescanso()
     descanso = { fim: Date.now() + segundos * 1000, total: segundos }
     document.getElementById('descanso-proximo').textContent = proximo
-    telaDescanso.classList.remove('d-none')
-    document.getElementById('descanso-pular').focus()
+    abrirSobreposicao(telaDescanso, document.getElementById('descanso-pular'))
+    anunciar(`Descanso de ${segundos} segundos. ${proximo}`)
     const tick = () => {
       const restante = Math.max(0, (descanso.fim - Date.now()) / 1000)
       document.getElementById('descanso-tempo').textContent = mmss(Math.ceil(restante))
@@ -286,6 +325,7 @@
         if (navigator.vibrate) navigator.vibrate([120, 80, 120])
         bip()
         pararDescanso()
+        anunciar('Descanso terminado. Hora da próxima série!')
       }
     }
     tick()
@@ -293,9 +333,11 @@
   }
 
   function pararDescanso () {
+    const estavaAberto = Boolean(descanso)
     if (descanso) clearInterval(descanso.intervalo)
     descanso = null
-    telaDescanso.classList.add('d-none')
+    if (estavaAberto) fecharSobreposicao(telaDescanso)
+    else telaDescanso.classList.add('d-none')
   }
 
   function bip () {
@@ -320,7 +362,11 @@
     descanso.fim += 15000
     descanso.total += 15
   })
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && descanso) pararDescanso() })
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return
+    if (descanso) pararDescanso()
+    else if (!document.getElementById('comemoracao').classList.contains('d-none')) document.getElementById('comemoracao-ok').click()
+  })
 
   document.getElementById('botao-pausar').addEventListener('click', () => {
     clearInterval(intervaloCronometro)
@@ -367,8 +413,7 @@
       `${TF.plural(registro.series, 'série', 'séries')} em ${minutos} min. ` +
       (dias > 1 ? `Você está há ${dias} dias seguidos treinando! 🔥` : 'Volte amanhã para começar uma sequência! 🔥')
     soltarConfete()
-    document.getElementById('comemoracao').classList.remove('d-none')
-    document.getElementById('comemoracao-ok').focus()
+    abrirSobreposicao(document.getElementById('comemoracao'), document.getElementById('comemoracao-ok'))
   }
 
   function soltarConfete () {
@@ -388,7 +433,7 @@
   }
 
   document.getElementById('comemoracao-ok').addEventListener('click', () => {
-    document.getElementById('comemoracao').classList.add('d-none')
+    fecharSobreposicao(document.getElementById('comemoracao'))
     irPara('hoje')
   })
 
@@ -406,7 +451,13 @@
       b.type = 'button'
       b.className = 'nav-link' + (letra === fichaAberta ? ' active' : '')
       b.textContent = `Treino ${letra}`
-      b.addEventListener('click', () => { fichaAberta = letra; desenharTreinos() })
+      b.setAttribute('aria-pressed', String(letra === fichaAberta))
+      b.addEventListener('click', () => {
+        fichaAberta = letra
+        desenharTreinos()
+        const novo = [...document.querySelectorAll('#abas-fichas button')].find(x => x.textContent === `Treino ${letra}`)
+        if (novo) novo.focus()
+      })
       li.appendChild(b)
       abas.appendChild(li)
     })
@@ -450,6 +501,9 @@
     const semanas = Array.from({ length: 8 }, (_, i) => estaSemana - (7 - i) * 7 * DIA)
     const contagens = semanas.map(ini => dados.historico.filter(h => h.fim >= ini && h.fim < ini + 7 * DIA).length)
     const maximo = Math.max(3, ...contagens)
+    grafico.setAttribute('role', 'img')
+    grafico.setAttribute('aria-label', 'Treinos por semana nas últimas 8 semanas: ' +
+      semanas.map((ini, i) => `semana de ${new Date(ini).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}, ${contagens[i]}`).join('; '))
     semanas.forEach((ini, i) => {
       const coluna = document.createElement('div')
       coluna.className = 'coluna-semana'
@@ -466,7 +520,11 @@
       grafico.appendChild(coluna)
     })
 
-    // Peso
+    // Peso (dado de saúde: só com consentimento específico, art. 11 da LGPD)
+    const consentiu = Boolean(dados.consentimentoPeso)
+    document.getElementById('consentimento-peso').classList.toggle('d-none', consentiu)
+    document.getElementById('area-peso').classList.toggle('d-none', !consentiu)
+    if (!consentiu) return
     const pesos = dados.pesos.slice().sort((a, b) => a.data - b.data)
     const caixa = document.getElementById('grafico-peso')
     const variacao = document.getElementById('peso-variacao')
@@ -494,18 +552,46 @@
     </svg>`
   }
 
+  document.getElementById('botao-autoriza-peso').addEventListener('click', () => {
+    const caixa = document.getElementById('autoriza-peso')
+    if (!caixa.checked) {
+      caixa.setAttribute('aria-invalid', 'true')
+      caixa.focus()
+      anunciar('Marque a autorização para registrar o peso.')
+      return
+    }
+    caixa.removeAttribute('aria-invalid')
+    dados.consentimentoPeso = { data: new Date().toISOString() }
+    guardar()
+    desenharProgresso()
+    document.getElementById('peso').focus()
+  })
+
+  document.getElementById('botao-revogar-peso').addEventListener('click', () => {
+    if (!window.confirm('Apagar todos os seus registros de peso e retirar a autorização?')) return
+    dados.pesos = []
+    dados.consentimentoPeso = null
+    guardar()
+    document.getElementById('autoriza-peso').checked = false
+    desenharProgresso()
+    anunciar('Registros de peso apagados e autorização retirada.')
+  })
+
   document.getElementById('form-peso').addEventListener('submit', e => {
     e.preventDefault()
     const campo = document.getElementById('peso')
     const kg = Math.round(parseFloat(String(campo.value).replace(',', '.')) * 10) / 10
-    if (!(kg >= 30 && kg <= 300)) { campo.classList.add('is-invalid'); return }
+    if (!dados.consentimentoPeso) return
+    if (!(kg >= 30 && kg <= 300)) { campo.classList.add('is-invalid'); campo.setAttribute('aria-invalid', 'true'); campo.focus(); return }
     campo.classList.remove('is-invalid')
+    campo.removeAttribute('aria-invalid')
     const hoje = inicioDoDia(Date.now())
     dados.pesos = dados.pesos.filter(p => inicioDoDia(p.data) !== hoje) // um registro por dia
     dados.pesos.push({ data: Date.now(), kg })
     guardar()
     campo.value = ''
     desenharProgresso()
+    anunciar(`Peso de ${kg.toLocaleString('pt-BR')} quilos registrado.`)
   })
 
   // ---------- Tela: Perfil ----------
@@ -531,6 +617,14 @@
     })
     document.getElementById('perfil-objetivo').value = aluno.objetivo || 'Hipertrofia'
     document.getElementById('perfil-nivel').value = aluno.nivel || 'Intermediário'
+    document.getElementById('corrigir-nome').value = aluno.nome
+    document.getElementById('corrigir-email').value = aluno.email
+    document.getElementById('corrigir-telefone').value = aluno.telefone
+    const c = aluno.consentimentos
+    const dataBR = iso => new Date(iso).toLocaleDateString('pt-BR')
+    document.getElementById('info-consentimentos').textContent =
+      (c ? `Você aceitou os termos e a política de privacidade em ${dataBR(c.data)}. ` : 'Cadastro feito pela academia. ') +
+      (dados.consentimentoPeso ? `Autorizou o registro de peso em ${dataBR(dados.consentimentoPeso.data)}.` : 'Você não autorizou o registro de peso.')
     if (aluno.demo) {
       TF.mostrarMensagem('Você está na conta de demonstração. Para salvar seus próprios treinos, crie a sua conta.', 'info')
     }
@@ -546,6 +640,58 @@
     TF.salvar('alunos', alunos)
     aluno = alunos[i]
     TF.mostrarMensagem('Pronto! Seus treinos foram ajustados.')
+  })
+
+  const campoTel = document.getElementById('corrigir-telefone')
+  campoTel.addEventListener('input', () => { campoTel.value = TF.mascaraTelefone(campoTel.value) })
+  document.getElementById('form-corrigir').addEventListener('submit', e => {
+    e.preventDefault()
+    const form = e.currentTarget
+    const email = document.getElementById('corrigir-email')
+    const alunos = TF.carregar('alunos')
+    const repetido = alunos.some(a => a.id !== aluno.id && (a.email || '').toLowerCase() === email.value.trim().toLowerCase())
+    email.setCustomValidity(repetido ? 'repetido' : '')
+    document.getElementById('corrigir-email-erro').textContent = repetido ? 'Este email já está em uso por outra conta.' : 'Informe um email válido.'
+    TF.marcarInvalidos(form)
+    if (!form.checkValidity()) {
+      form.classList.add('was-validated')
+      form.querySelector('input:invalid, select:invalid').focus()
+      return
+    }
+    const i = alunos.findIndex(a => a.id === aluno.id)
+    if (i === -1) { TF.sairAluno(); return }
+    alunos[i].nome = document.getElementById('corrigir-nome').value.trim()
+    alunos[i].email = email.value.trim().toLowerCase()
+    alunos[i].telefone = campoTel.value.trim()
+    TF.salvar('alunos', alunos)
+    aluno = alunos[i]
+    form.classList.remove('was-validated')
+    desenharPerfil()
+    TF.mostrarMensagem('Seus dados foram corrigidos.')
+  })
+  document.getElementById('corrigir-email').addEventListener('input', e => e.target.setCustomValidity(''))
+
+  // Portabilidade / acesso (art. 18 da LGPD): baixa tudo o que existe sobre o aluno, sem a senha.
+  document.getElementById('botao-baixar-dados').addEventListener('click', () => {
+    const { senha, ...cadastro } = aluno
+    const instrutor = TF.mapaInstrutores().get(aluno.instrutorId)
+    const conteudo = {
+      geradoEm: new Date().toISOString(),
+      controlador: 'Titan Fit (empresa fictícia, projeto acadêmico)',
+      cadastro: { ...cadastro, instrutor: instrutor ? instrutor.nome : null },
+      treinos: dados.historico.map(h => ({ ...h, inicio: new Date(h.inicio).toISOString(), fim: new Date(h.fim).toISOString() })),
+      pesos: dados.pesos.map(p => ({ data: new Date(p.data).toISOString(), kg: p.kg })),
+      consentimentoPeso: dados.consentimentoPeso || null
+    }
+    const arquivo = new Blob([JSON.stringify(conteudo, null, 2)], { type: 'application/json' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(arquivo)
+    link.download = `meus-dados-titan-fit-${new Date().toISOString().slice(0, 10)}.json`
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000)
+    anunciar('Arquivo com os seus dados baixado.')
   })
 
   document.getElementById('botao-sair').addEventListener('click', () => TF.sairAluno())
