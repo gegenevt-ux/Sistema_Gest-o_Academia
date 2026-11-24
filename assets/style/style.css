@@ -465,3 +465,92 @@ a:hover { color: var(--tf-laranja-escuro); }
   .linha-peso { stroke-dasharray: none; stroke-dashoffset: 0; }
 }
 .app-corpo.executando .bd-mode-toggle { display: none !important; }
+
+/* =========================================================
+   Ajustes gerais de contraste e modo escuro
+   ========================================================= */
+body { color: var(--bs-body-color); }
+.link-laranja { color: var(--tf-laranja); text-decoration: none; font-weight: 600; }
+.link-laranja:hover { color: var(--tf-laranja-escuro); }
+.cronometro {
+  padding: .25rem .7rem; border-radius: .6rem; font-weight: 700; font-variant-numeric: tabular-nums;
+  color: #fff; background: #14161f; border: 1px solid rgba(255, 255, 255, .12);
+}
+
+/* O carrossel tem fundo escuro nos dois temas: texto, setas e indicadores sempre claros */
+.carousel .carousel-caption { color: #fff; }
+.carousel .carousel-indicators [data-bs-target] { background-color: #fff; }
+.carousel .carousel-control-prev-icon, .carousel .carousel-control-next-icon { filter: none; }
+
+[data-bs-theme="dark"] {
+  --tf-fundo-cartao: #1c1f2a;
+  --tf-fundo-app: #111319;
+  --tf-borda: rgba(255, 255, 255, .09);
+}
+
+/* Botões contornados mais visíveis */
+[data-bs-theme="dark"] .btn-outline-secondary {
+  --bs-btn-color: #dee2e6;
+  --bs-btn-border-color: rgba(255, 255, 255, .35);
+  --bs-btn-hover-color: #14161f;
+  --bs-btn-hover-bg: #dee2e6;
+  --bs-btn-hover-border-color: #dee2e6;
+  --bs-btn-active-bg: #f8f9fa;
+  --bs-btn-active-color: #14161f;
+}
+[data-bs-theme="dark"] .btn-outline-danger { --bs-btn-color: #ff6b7a; --bs-btn-border-color: #ff6b7a; }
+[data-bs-theme="dark"] .btn-secondary { --bs-btn-bg: #3a4052; --bs-btn-border-color: #3a4052; --bs-btn-hover-bg: #4a5166; --bs-btn-hover-border-color: #4a5166; }
+[data-bs-theme="dark"] .text-body-secondary { color: rgba(222, 226, 230, .7) !important; }
+
+/* Cartões destacados do fundo */
+[data-bs-theme="dark"] .cartao-form,
+[data-bs-theme="dark"] .cartao-plano,
+[data-bs-theme="dark"] .atalho,
+[data-bs-theme="dark"] .mini-stat,
+[data-bs-theme="dark"] .cartao-exercicio {
+  background: var(--tf-fundo-cartao);
+  border-color: var(--tf-borda);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .35);
+}
+[data-bs-theme="dark"] .cartao-plano.destaque { border-color: var(--tf-laranja); }
+[data-bs-theme="dark"] .cartao-numero {
+  background: linear-gradient(135deg, #2a2f42, #1a1d28);
+  border: 1px solid var(--tf-borda);
+  border-bottom: 4px solid var(--tf-laranja);
+}
+[data-bs-theme="dark"] .imagem-destaque,
+[data-bs-theme="dark"] .icone-modalidade { box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, .55); }
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select { background-color: #14161f; border-color: rgba(255, 255, 255, .15); }
+[data-bs-theme="dark"] .form-control::placeholder { color: rgba(222, 226, 230, .45); }
+[data-bs-theme="dark"] .list-group-item { background: var(--tf-fundo-cartao); border-color: var(--tf-borda); }
+[data-bs-theme="dark"] .table { --bs-table-bg: transparent; }
+[data-bs-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > * { --bs-table-bg-type: rgba(255, 255, 255, .04); }
+[data-bs-theme="dark"] .barra-trilho { background: rgba(255, 255, 255, .08); }
+[data-bs-theme="dark"] .featurette-divider, [data-bs-theme="dark"] hr { border-color: rgba(255, 255, 255, .15); }
+
+/* Celular da página inicial */
+[data-bs-theme="dark"] .celular { box-shadow: 0 2rem 4rem rgba(0, 0, 0, .6), inset 0 0 0 2px #3a4052, 0 0 0 1px rgba(255, 255, 255, .08); }
+[data-bs-theme="dark"] .celular-tela { background: #1c1f2a; }
+[data-bs-theme="dark"] .mini-cartao { background: rgba(255, 255, 255, .06); }
+
+/* App do aluno no escuro */
+[data-bs-theme="dark"] .app-corpo { background: var(--tf-fundo-app); }
+[data-bs-theme="dark"] .app-nav { background: #161922; border-top-color: var(--tf-borda); box-shadow: 0 -.25rem 1.5rem rgba(0, 0, 0, .5); }
+[data-bs-theme="dark"] .app-nav button span { filter: grayscale(1) brightness(1.6); }
+[data-bs-theme="dark"] .app-nav button.ativo span { filter: none; }
+[data-bs-theme="dark"] .dia i { background: var(--tf-fundo-cartao); border-color: rgba(255, 255, 255, .18); }
+[data-bs-theme="dark"] .barra-semana { background: rgba(255, 140, 60, .45); }
+[data-bs-theme="dark"] .grafico-linha circle { fill: var(--tf-fundo-cartao); }
+[data-bs-theme="dark"] .cartao-exercicio.concluido { border-color: rgba(60, 200, 130, .55); }
+[data-bs-theme="dark"] .cartao-exercicio.concluido strong::after { color: #3cc882; }
+[data-bs-theme="dark"] .badge.text-bg-secondary { background-color: #3a4052 !important; color: #e9edf5 !important; }
+[data-bs-theme="dark"] .nav-pills .nav-link:not(.active):hover { background: rgba(255, 106, 26, .12); }
+[data-bs-theme="dark"] .dia.feito i { background: var(--tf-gradiente); border-color: transparent; }
+[data-bs-theme="dark"] .dia.hoje i { border-color: var(--tf-laranja); }
+[data-bs-theme="dark"] .barra-semana.atual { background: var(--tf-gradiente); }
+
+/* Tabelas da gestão mais compactas, para caber a coluna de ações */
+#tabela { font-size: .92rem; }
+#tabela > :not(caption) > * > * { padding: .55rem .45rem; }
+#tabela td:last-child { width: 1%; }
