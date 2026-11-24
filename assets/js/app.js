@@ -176,6 +176,7 @@
     corpo.replaceChildren()
     itens.forEach((item, indice) => {
       const linha = document.createElement('tr')
+      linha.style.animationDelay = `${Math.min(indice, 10) * 60}ms`
 
       const numero = document.createElement('th')
       numero.scope = 'row'
@@ -196,13 +197,27 @@
       botao.addEventListener('click', () => {
         if (!window.confirm(`Excluir "${item.nome}"?`)) return
         salvar(tipo, carregar(tipo).filter(outro => outro.id !== item.id))
-        renderizarTabela(tabela, filtro)
+        const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        if (reduzido) {
+          renderizarTabela(tabela, filtro)
+        } else {
+          linha.classList.add('saindo')
+          linha.addEventListener('animationend', () => renderizarTabela(tabela, filtro), { once: true })
+        }
       })
       acoes.appendChild(botao)
       linha.appendChild(acoes)
 
       corpo.appendChild(linha)
     })
+
+    const contador = document.getElementById('contador')
+    if (contador) {
+      const total = carregar(tipo).length
+      const nome = tipo === 'alunos' ? ['aluno', 'alunos'] : ['instrutor', 'instrutores']
+      const base = `${total} ${total === 1 ? nome[0] : nome[1]} ${total === 1 ? 'cadastrado' : 'cadastrados'}`
+      contador.textContent = termo ? `${base} · ${itens.length} ${itens.length === 1 ? 'resultado' : 'resultados'} na busca` : base
+    }
 
     if (vazio) {
       vazio.textContent = termo ? `Nenhum resultado para "${filtro.trim()}".` : 'Nenhum registro cadastrado ainda.'
@@ -237,8 +252,37 @@
     return ''
   }
 
+  // ---------- Animações ----------
+  function configurarAnimacoes () {
+    // Elementos com .reveal aparecem suavemente ao entrar na tela.
+    const elementos = document.querySelectorAll('.reveal')
+    if (!('IntersectionObserver' in window)) {
+      elementos.forEach(el => el.classList.add('visivel'))
+    } else {
+      const observador = new IntersectionObserver(entradas => {
+        entradas.forEach(entrada => {
+          if (entrada.isIntersecting) {
+            entrada.target.classList.add('visivel')
+            observador.unobserve(entrada.target)
+          }
+        })
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' })
+      elementos.forEach(el => observador.observe(el))
+    }
+
+    // Sombra no menu ao rolar a página.
+    const navbar = document.querySelector('.navbar')
+    if (navbar) {
+      const atualizar = () => navbar.classList.toggle('rolando', window.scrollY > 10)
+      window.addEventListener('scroll', atualizar, { passive: true })
+      atualizar()
+    }
+  }
+
   // ---------- Inicialização ----------
   document.addEventListener('DOMContentLoaded', () => {
+    configurarAnimacoes()
+
     // Destaca no menu a página atual.
     const paginaAtual = window.location.pathname.split('/').pop() || 'Index.html'
     document.querySelectorAll('.navbar a[href]').forEach(link => {

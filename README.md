@@ -19,6 +19,7 @@ Site da **Titan Fit**, feito com HTML, Bootstrap 5 e JavaScript puro.
 - Listagem com busca (pelo campo do menu) e botão para excluir.
 - Os dados ficam salvos no próprio navegador (`localStorage`). Na primeira vez que o site abre, ele já vem com 3 alunos e 3 instrutores de exemplo.
 - Tema claro, escuro ou automático (botão no canto inferior direito).
+- Ilustrações próprias em SVG (logo, carrossel, modalidades e destaques) e animações: zoom no carrossel, elementos que aparecem ao rolar, efeitos ao passar o mouse, linhas da tabela entrando e saindo. Quem ativa "reduzir movimento" no sistema não vê as animações.
 
 ## Como rodar
 
@@ -34,6 +35,7 @@ python3 -m http.server 8000
 ```
 assets/
   dist/       Bootstrap (CSS e JS)
+  img/        ilustrações e logo (SVG)
   js/
     app.js          lógica de cadastro, listagem e busca
     color-modes.js  troca de tema claro/escuro

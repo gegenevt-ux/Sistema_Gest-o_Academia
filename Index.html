@@ -6,8 +6,10 @@
     <meta name="description" content="Sistema de gestão da Titan Fit: cadastro e listagem de alunos e instrutores." />
     <title>Sistema de Gestão Academia</title>
     <script src="./assets/js/color-modes.js"></script>
+    <script>document.documentElement.classList.add("js")</script>
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <meta name="theme-color" content="#712cf9" />
+    <meta name="theme-color" content="#ff6a1a" />
+    <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
     <link href="./assets/style/carousel.css" rel="stylesheet" />
     <link href="./assets/style/style.css" rel="stylesheet" />
 
@@ -111,7 +113,7 @@
     <header data-bs-theme="dark">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="Index.html">Titan Fit</a>
+          <a class="navbar-brand d-flex align-items-center gap-2" href="Index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -183,20 +185,7 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <svg
-              aria-hidden="true"
-              class="bd-placeholder-img"
-              height="100%"
-              preserveAspectRatio="xMidYMid slice"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+            <img src="./assets/img/slide-forca.svg" class="carousel-img" alt="Barra olímpica com anilhas" />
             <div class="container">
               <div class="carousel-caption text-start">
                 <h1>Titan Fit</h1>
@@ -204,26 +193,13 @@
                   A academia onde você não vai precisar ver casais treinando, onde focamos na saúde e no bem-estar dos nossos alunos.
                 </p>
                 <p>
-                  <a class="btn btn-lg btn-primary" href="Cadastro_alunos.html">Matricule-se</a>
+                  <a class="btn btn-lg btn-primary btn-pulso" href="Cadastro_alunos.html">Matricule-se</a>
                 </p>
               </div>
             </div>
           </div>
           <div class="carousel-item">
-            <svg
-              aria-hidden="true"
-              class="bd-placeholder-img"
-              height="100%"
-              preserveAspectRatio="xMidYMid slice"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+            <img src="./assets/img/slide-yoga.svg" class="carousel-img" alt="Pôr do sol sobre montanhas com uma flor de lótus" />
             <div class="container">
               <div class="carousel-caption">
                 <h1>Yoga day</h1>
@@ -235,20 +211,7 @@
             </div>
           </div>
           <div class="carousel-item">
-            <svg
-              aria-hidden="true"
-              class="bd-placeholder-img"
-              height="100%"
-              preserveAspectRatio="xMidYMid slice"
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+            <img src="./assets/img/slide-modalidades.svg" class="carousel-img" alt="Kettlebell, halter e argolas de ginástica" />
             <div class="container">
               <div class="carousel-caption text-end">
                 <h1>Temos diversas modalidades.</h1>
@@ -287,23 +250,8 @@
       <div class="container marketing">
         <!-- Three columns of text below the carousel -->
         <div class="row">
-          <div class="col-lg-4">
-            <svg
-              aria-label="Placeholder"
-              class="bd-placeholder-img rounded-circle"
-              height="140"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="140"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+          <div class="col-lg-4 reveal">
+            <img src="./assets/img/icon-calistenia.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Calistenia" />
             <h2 class="fw-normal">Calistenia</h2>
             <p>
               Aqui é só para aqueles que não gostam de pegar pesado.
@@ -313,23 +261,8 @@
             </p>
           </div>
           <!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <svg
-              aria-label="Placeholder"
-              class="bd-placeholder-img rounded-circle"
-              height="140"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="140"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+          <div class="col-lg-4 reveal">
+            <img src="./assets/img/icon-musculacao.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Musculação" />
             <h2 class="fw-normal">Musculação</h2>
             <p>
               Para os marombeiros, só digo uma coisa: aqui você não passa sufoco.
@@ -339,23 +272,8 @@
             </p>
           </div>
           <!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <svg
-              aria-label="Placeholder"
-              class="bd-placeholder-img rounded-circle"
-              height="140"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="140"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
+          <div class="col-lg-4 reveal">
+            <img src="./assets/img/icon-outras.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Outras modalidades" />
             <h2 class="fw-normal">Outras</h2>
             <p>
               Quer explorar outras modalidades? Entre em contato com a gente.
@@ -369,7 +287,7 @@
         <!-- /.row -->
         <!-- START THE FEATURETTES -->
         <hr class="featurette-divider" />
-        <div class="row featurette">
+        <div class="row featurette reveal">
           <div class="col-md-7">
             <h2 class="featurette-heading fw-normal lh-1">
               Pode vir tranquilo!
@@ -380,29 +298,11 @@
             </p>
           </div>
           <div class="col-md-5">
-            <svg
-              aria-label="Placeholder: 500x500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="500"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
-            </svg>
+            <img src="./assets/img/destaque-tranquilo.svg" class="featurette-image img-fluid mx-auto d-block imagem-destaque" width="500" height="500" alt="Fones de ouvido sobre um banco, numa noite tranquila" />
           </div>
         </div>
         <hr class="featurette-divider" />
-        <div class="row featurette">
+        <div class="row featurette reveal">
           <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading fw-normal lh-1">
               Espaço exclusivo.
@@ -413,29 +313,11 @@
             </p>
           </div>
           <div class="col-md-5 order-md-1">
-            <svg
-              aria-label="Placeholder: 500x500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="500"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
-            </svg>
+            <img src="./assets/img/destaque-exclusivo.svg" class="featurette-image img-fluid mx-auto d-block imagem-destaque" width="500" height="500" alt="Porta de sala VIP iluminada" />
           </div>
         </div>
         <hr class="featurette-divider" />
-        <div class="row featurette">
+        <div class="row featurette reveal">
           <div class="col-md-7">
             <h2 class="featurette-heading fw-normal lh-1">
               Posso ser personal trainer?
@@ -446,25 +328,7 @@
             </p>
           </div>
           <div class="col-md-5">
-            <svg
-              aria-label="Placeholder: 500x500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="500"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
-            </svg>
+            <img src="./assets/img/destaque-personal.svg" class="featurette-image img-fluid mx-auto d-block imagem-destaque" width="500" height="500" alt="Prancheta de treino e cronômetro" />
           </div>
         </div>
         <hr class="featurette-divider" />
