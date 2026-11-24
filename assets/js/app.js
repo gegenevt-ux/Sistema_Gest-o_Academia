@@ -1,5 +1,5 @@
 /*
- * Sistema de Gestão - Academia dos Solteiros
+ * Sistema de Gestão - Titan Fit
  * Cadastro e listagem de alunos e instrutores, salvos no navegador (localStorage).
  */
 (() => {

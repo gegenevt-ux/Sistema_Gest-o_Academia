@@ -1,6 +1,6 @@
 # Sistema de Gestão de Academia
 
-Site da **Academia dos Solteiros**, feito com HTML, Bootstrap 5 e JavaScript puro.
+Site da **Titan Fit**, feito com HTML, Bootstrap 5 e JavaScript puro.
 
 ## Páginas
 
