@@ -215,7 +215,10 @@
         series: 20 + i
       }))
       const pesos = [28, 21, 14, 7, 0].map((d, i) => ({ data: agora - d * dia, kg: [82.4, 81.9, 81.1, 80.6, 80.2][i] }))
-      localStorage.setItem(chaveTreinos(demo.id), JSON.stringify({ historico, pesos, emAndamento: null }))
+      const consentimentoPeso = { data: new Date().toISOString() }
+      demo.consentimentos = { termos: '1.0', privacidade: '1.0', maioridade: true, data: new Date().toISOString() }
+      salvar('alunos', alunos)
+      localStorage.setItem(chaveTreinos(demo.id), JSON.stringify({ historico, pesos, emAndamento: null, consentimentoPeso }))
     }
     entrarComo(demo.id)
   }
@@ -295,6 +298,126 @@
     })
   }
 
+  const mascararCPF = cpf => {
+    const d = somenteDigitos(cpf)
+    return d.length === 11 ? `***.${d.slice(3, 6)}.${d.slice(6, 9)}-**` : '-'
+  }
+
+  // Liga cada campo à sua mensagem de erro e marca aria-invalid (leitores de tela anunciam o erro).
+  function prepararAcessibilidadeFormulario (form) {
+    form.querySelectorAll('input, select, textarea').forEach((campo, i) => {
+      if (!campo.id) return
+      const grupo = campo.closest('.mb-3, .mb-2, .form-check, .col-md-6, .col-6') || campo.parentElement
+      const erro = grupo && grupo.querySelector('.invalid-feedback')
+      if (erro) {
+        if (!erro.id) erro.id = `${campo.id}-erro`
+        const ligados = (campo.getAttribute('aria-describedby') || '').split(' ').filter(Boolean)
+        if (!ligados.includes(erro.id)) ligados.push(erro.id)
+        const ajuda = grupo.querySelector('.form-text')
+        if (ajuda && ajuda.id && !ligados.includes(ajuda.id)) ligados.unshift(ajuda.id)
+        campo.setAttribute('aria-describedby', ligados.join(' '))
+      }
+      if (campo.required && campo.type !== 'checkbox') {
+        const rotulo = form.querySelector(`label[for="${campo.id}"]`)
+        if (rotulo && !rotulo.querySelector('.obrigatorio')) {
+          rotulo.insertAdjacentHTML('beforeend', ' <span class="obrigatorio text-danger" aria-hidden="true">*</span>')
+        }
+      }
+      campo.addEventListener('input', () => { if (campo.checkValidity()) campo.removeAttribute('aria-invalid') })
+      campo.addEventListener('change', () => { if (campo.checkValidity()) campo.removeAttribute('aria-invalid') })
+    })
+  }
+
+  function marcarInvalidos (form) {
+    form.querySelectorAll('input, select, textarea').forEach(campo => {
+      if (campo.checkValidity()) campo.removeAttribute('aria-invalid')
+      else campo.setAttribute('aria-invalid', 'true')
+    })
+  }
+
+  // ---------- Acessibilidade: tamanho do texto, alto contraste, carrossel, Libras ----------
+  function configurarAcessibilidade () {
+    const raiz = document.documentElement
+    const aplicarFonte = nivel => {
+      nivel = Math.max(-2, Math.min(4, nivel))
+      raiz.style.fontSize = nivel ? `${100 + nivel * 12.5}%` : ''
+      try { localStorage.setItem('academia_fonte', String(nivel)) } catch (erro) {}
+      return nivel
+    }
+    let nivelFonte = 0
+    try { nivelFonte = Number(localStorage.getItem('academia_fonte')) || 0 } catch (erro) {}
+    document.querySelectorAll('[data-fonte]').forEach(botao => {
+      botao.addEventListener('click', () => {
+        const passo = Number(botao.dataset.fonte)
+        nivelFonte = aplicarFonte(passo === 0 ? 0 : nivelFonte + passo)
+      })
+    })
+
+    const botaoContraste = document.querySelector('[data-alto-contraste]')
+    if (botaoContraste) {
+      const atualizar = () => botaoContraste.setAttribute('aria-pressed', String(raiz.classList.contains('alto-contraste')))
+      atualizar()
+      botaoContraste.addEventListener('click', () => {
+        raiz.classList.toggle('alto-contraste')
+        try { localStorage.setItem('academia_alto_contraste', raiz.classList.contains('alto-contraste') ? '1' : '0') } catch (erro) {}
+        atualizar()
+      })
+    }
+
+    // Carrossel: botão de pausa (WCAG 2.2.2) e sem rotação automática para quem reduz movimento.
+    const carrossel = document.getElementById('myCarousel')
+    const pausa = document.getElementById('carousel-pausa')
+    if (carrossel && pausa && window.bootstrap) {
+      const instancia = window.bootstrap.Carousel.getOrCreateInstance(carrossel)
+      let pausado = false
+      const definir = valor => {
+        pausado = valor
+        if (pausado) instancia.pause(); else instancia.cycle()
+        pausa.setAttribute('aria-pressed', String(pausado))
+        pausa.textContent = pausado ? 'Continuar destaques' : 'Pausar destaques'
+        carrossel.querySelector('.carousel-inner').setAttribute('aria-live', pausado ? 'polite' : 'off')
+      }
+      pausa.addEventListener('click', () => definir(!pausado))
+      if (reduzirMovimento()) definir(true)
+      else carrossel.querySelector('.carousel-inner').setAttribute('aria-live', 'off')
+      // Ao navegar por teclado dentro do carrossel, ele para de girar.
+      carrossel.addEventListener('focusin', () => { if (!pausado) instancia.pause() })
+      carrossel.addEventListener('focusout', () => { if (!pausado) instancia.cycle() })
+    }
+
+    // Tradutor de Libras do Governo Federal (VLibras). Carrega sem travar a página.
+    if (!document.querySelector('[vw]')) {
+      document.body.insertAdjacentHTML('beforeend',
+        '<div vw class="enabled"><div vw-access-button class="active"></div>' +
+        '<div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>')
+      const script = document.createElement('script')
+      script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js'
+      script.async = true
+      script.onload = () => { try { new window.VLibras.Widget('https://vlibras.gov.br/app') } catch (erro) {} }
+      script.onerror = () => { const vw = document.querySelector('[vw]'); if (vw) vw.remove() }
+      document.body.appendChild(script)
+    }
+  }
+
+  // Aviso sobre armazenamento local (LGPD / Marco Civil): aparece uma vez.
+  function avisoArmazenamento () {
+    let visto = false
+    try { visto = localStorage.getItem('academia_aviso_armazenamento') === '1' } catch (erro) { return }
+    if (visto) return
+    const aviso = document.createElement('div')
+    aviso.className = 'aviso-armazenamento'
+    aviso.setAttribute('role', 'region')
+    aviso.setAttribute('aria-label', 'Aviso sobre armazenamento de dados')
+    aviso.innerHTML = '<p class="mb-0">Este site guarda informações <strong>só no seu navegador</strong> para funcionar (sua conta, seus treinos e suas preferências). ' +
+      'Não usamos cookies de publicidade nem de rastreamento. <a href="privacidade.html">Política de privacidade</a></p>' +
+      '<button type="button" class="btn btn-primary btn-sm">Entendi</button>'
+    aviso.querySelector('button').addEventListener('click', () => {
+      try { localStorage.setItem('academia_aviso_armazenamento', '1') } catch (erro) {}
+      aviso.remove()
+    })
+    document.body.appendChild(aviso)
+  }
+
   // ---------- Formulários de cadastro e edição ----------
   function preencherInstrutores (select, selecionado = '') {
     if (!select) return
@@ -341,6 +464,12 @@
       if (camposSenha) {
         camposSenha.classList.add('d-none')
         camposSenha.querySelectorAll('input').forEach(campo => { campo.required = false })
+      }
+      // Na edição pela gestão, os aceites são do próprio aluno: não aparecem nem são exigidos.
+      const consentimentos = document.getElementById('consentimentos')
+      if (consentimentos) {
+        consentimentos.classList.add('d-none')
+        consentimentos.querySelectorAll('input').forEach(campo => { campo.required = false })
       }
       const link = document.getElementById('link-secundario')
       if (link) { link.textContent = 'Voltar à lista'; link.href = nomes.pagina }
@@ -411,9 +540,10 @@
         if (feedback && erro) feedback.textContent = erro
       }
 
+      marcarInvalidos(form)
       if (!form.checkValidity()) {
         form.classList.add('was-validated')
-        const primeiroInvalido = form.querySelector(':invalid')
+        const primeiroInvalido = form.querySelector('input:invalid, select:invalid, textarea:invalid')
         if (primeiroInvalido) primeiroInvalido.focus()
         return
       }
@@ -436,7 +566,11 @@
         mensagem = `Dados de "${dados.nome}" atualizados com sucesso!`
       } else {
         const novo = { id: novoId(), ...dados }
-        if (cadastroPublico) novo.senha = await criarSenha(form.elements.senha.value)
+        if (cadastroPublico) {
+          novo.senha = await criarSenha(form.elements.senha.value)
+          // Registro do consentimento (LGPD): o que foi aceito, qual versão e quando.
+          novo.consentimentos = { termos: '1.0', privacidade: '1.0', maioridade: true, data: new Date().toISOString() }
+        }
         lista.push(novo)
         if (cadastroPublico) {
           if (!salvar(tipo, lista)) {
@@ -544,6 +678,10 @@
         const texto = valor(item)
         if (titulo === 'Instrutor' && !texto) {
           celula.innerHTML = '<span class="text-body-secondary">Sem instrutor</span>'
+        } else if (titulo === 'CPF') {
+          // LGPD (necessidade): na lista, o CPF aparece só parcialmente.
+          celula.textContent = mascararCPF(texto)
+          celula.setAttribute('aria-label', 'CPF parcialmente oculto')
         } else if (titulo === 'Alunos') {
           const selo = document.createElement('span')
           selo.className = 'badge rounded-pill text-bg-secondary'
@@ -606,6 +744,7 @@
       window.alert('Não há registros para exportar.')
       return
     }
+    if (tipo === 'alunos' && !window.confirm('A planilha terá dados pessoais completos (CPF, email e telefone). Guarde o arquivo em local seguro e apague quando não precisar mais. Continuar?')) return
     // Ponto e vírgula como separador: o Excel em português abre direto nas colunas certas.
     const celula = texto => `"${String(texto ?? '').replace(/"/g, '""')}"`
     const linhas = [
@@ -764,6 +903,9 @@
   // ---------- Inicialização ----------
   document.addEventListener('DOMContentLoaded', () => {
     configurarAnimacoes()
+    configurarAcessibilidade()
+    document.querySelectorAll('form.needs-validation, #form-entrar, #form-gestao, #form-corrigir').forEach(prepararAcessibilidadeFormulario)
+    avisoArmazenamento()
 
     // Destaca no menu a página atual.
     const paginaAtual = window.location.pathname.split('/').pop() || 'index.html'
@@ -805,6 +947,7 @@
   // Funções usadas também pelo app de treino (treino.js).
   window.TitanFit = {
     carregar, salvar, alunoLogado, sairAluno, chaveTreinos, PLANOS,
-    mapaInstrutores, mostrarMensagem, reduzirMovimento, formatarMoeda, plural, novoId
+    mapaInstrutores, mostrarMensagem, reduzirMovimento, formatarMoeda, plural, novoId,
+    mascaraTelefone, mascararCPF, marcarInvalidos
   }
 })()

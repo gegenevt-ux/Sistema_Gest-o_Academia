@@ -5,15 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Titan Fit: academia com app de treino para os alunos." />
     <title>Cadastre-se | Titan Fit</title>
-    <script src="./assets/js/color-modes.js"></script>
-    <script>document.documentElement.classList.add("js")</script>
+    <script src="./assets/js/color-modes.js?v=20261124b"></script>
+    <script>document.documentElement.classList.add("js");try{var f=+localStorage.getItem("academia_fonte")||0;if(f)document.documentElement.style.fontSize=(100+f*12.5)+"%";if(localStorage.getItem("academia_alto_contraste")==="1")document.documentElement.classList.add("alto-contraste")}catch(e){}</script>
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#ff6a1a" />
     <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
-    <link href="./assets/style/carousel.css" rel="stylesheet" />
-    <link href="./assets/style/style.css" rel="stylesheet" />
+    <link href="./assets/style/carousel.css?v=20261124b" rel="stylesheet" />
+    <link href="./assets/style/style.css?v=20261124b" rel="stylesheet" />
   </head>
   <body>
+    <div class="barra-acessibilidade" role="region" aria-label="Recursos de acessibilidade">
+      <div class="container-fluid d-flex flex-wrap justify-content-between align-items-center gap-1">
+        <ul class="atalhos">
+          <li><a href="#conteudo" accesskey="1">Ir para o conteúdo <span aria-hidden="true">[1]</span></a></li>
+          <li><a href="#menu-principal" accesskey="2">Ir para o menu <span aria-hidden="true">[2]</span></a></li>
+          <li><a href="#rodape" accesskey="3">Ir para o rodapé <span aria-hidden="true">[3]</span></a></li>
+        </ul>
+        <ul class="ajustes">
+          <li><a href="acessibilidade.html">Acessibilidade</a></li>
+          <li><button type="button" data-fonte="1">A+<span class="visually-hidden"> (aumentar o texto)</span></button></li>
+          <li><button type="button" data-fonte="-1">A&minus;<span class="visually-hidden"> (diminuir o texto)</span></button></li>
+          <li><button type="button" data-fonte="0">A<span class="visually-hidden"> (tamanho padrão do texto)</span></button></li>
+          <li><button type="button" data-alto-contraste aria-pressed="false">Alto contraste</button></li>
+        </ul>
+      </div>
+    </div>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path
@@ -111,7 +127,7 @@
     </div>
     
     <header data-bs-theme="dark">
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <nav id="menu-principal" aria-label="Menu principal" class="navbar navbar-expand-md navbar-dark sticky-top bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
@@ -133,7 +149,7 @@
         </div>
       </nav>
     </header>
-    <main>
+    <main id="conteudo" tabindex="-1">
       <section class="banner-pagina">
         <div class="container">
           <h1 class="display-5 fw-bold">Quer fazer parte da Titan Fit?</h1>
@@ -142,7 +158,9 @@
       </section>
       <div class="container marketing">
         <div id="mensagem" class="alert d-none" role="alert"></div>
-        <form id="form-aluno" class="needs-validation cartao-form reveal" novalidate>
+        <form id="form-aluno" class="needs-validation cartao-form reveal" novalidate aria-describedby="aviso-obrigatorios aviso-privacidade">
+          <p class="small text-body-secondary" id="aviso-obrigatorios">Campos marcados com <span class="text-danger" aria-hidden="true">*</span><span class="visually-hidden">asterisco</span> são obrigatórios.</p>
+          <p class="small alert alert-secondary py-2" id="aviso-privacidade">Usamos seus dados só para a matrícula, o contrato e o app de treino. Eles ficam guardados neste aparelho. Saiba mais na <a href="privacidade.html">Política de privacidade</a>.</p>
           <div class="mb-3">
             <label for="nome" class="form-label">Nome completo</label>
             <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome aqui" required minlength="3" autocomplete="name" />
@@ -151,6 +169,7 @@
           <div class="mb-3">
             <label for="cpf" class="form-label">CPF</label>
             <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required inputmode="numeric" maxlength="14" />
+            <div class="form-text" id="cpf-ajuda">Necessário para o contrato e a nota fiscal.</div>
             <div class="invalid-feedback" id="cpf-feedback">Informe um CPF válido.</div>
           </div>
           <div class="mb-3">
@@ -214,6 +233,19 @@
               <div class="invalid-feedback" id="senha2-feedback">As senhas não conferem.</div>
             </div>
           </div>
+          <fieldset class="mb-4" id="consentimentos">
+            <legend class="h6">Confirmações</legend>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" id="aceite-termos" name="aceiteTermos" required />
+              <label class="form-check-label" for="aceite-termos">Li e concordo com os <a href="termos.html" target="_blank" rel="noopener">Termos de uso<span class="visually-hidden"> (abre em nova aba)</span></a> e a <a href="privacidade.html" target="_blank" rel="noopener">Política de privacidade<span class="visually-hidden"> (abre em nova aba)</span></a>.</label>
+              <div class="invalid-feedback">Para criar a conta, é preciso concordar com os termos e a política de privacidade.</div>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="maioridade" name="maioridade" required />
+              <label class="form-check-label" for="maioridade">Tenho 18 anos ou mais. <span class="text-body-secondary">(Menores de idade se matriculam na recepção, com o responsável.)</span></label>
+              <div class="invalid-feedback">O cadastro on-line é só para maiores de 18 anos.</div>
+            </div>
+          </fieldset>
           <button type="submit" class="btn btn-primary btn-lg" id="botao-salvar">Criar minha conta</button>
           <a href="entrar.html" class="btn btn-link" id="link-secundario">Já tenho conta</a>
         </form>
@@ -221,12 +253,13 @@
       <br />
       
       <!-- FOOTER -->
-      <footer class="container">
-        <p class="float-end"><a href="#">Voltar ao topo</a></p>
-        <p>&copy; 2026 Titan Fit &middot; <a href="gestao.html" class="link-secondary">Área da academia</a></p>
+      <footer class="container rodape" id="rodape">
+        <p class="float-end"><a href="#conteudo">Voltar ao topo</a></p>
+        <p class="mb-1">&copy; 2026 Titan Fit &middot; <a href="privacidade.html">Política de privacidade</a> &middot; <a href="termos.html">Termos de uso</a> &middot; <a href="acessibilidade.html">Acessibilidade</a> &middot; <a href="gestao.html">Área da academia</a></p>
+        <p class="small text-body-secondary mb-0">Projeto acadêmico: a Titan Fit é uma academia fictícia, criada para fins de estudo. Preços e planos são ilustrativos.</p>
       </footer>
     </main>
     <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/app.js?v=20261124b"></script>
   </body>
 </html>
