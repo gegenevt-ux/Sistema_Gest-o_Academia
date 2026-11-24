@@ -113,7 +113,7 @@
     <header data-bs-theme="dark">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand d-flex align-items-center gap-2" href="Index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
+          <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -128,7 +128,10 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="nav-item">
-                <a class="nav-link" href="Index.html">Home</a>
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="planos.html">Planos</a>
               </li>
              <!---Começo do menu dropdown-->
               <li class="nav-item dropdown">
@@ -190,7 +193,7 @@
               <div class="carousel-caption text-start">
                 <h1>Titan Fit</h1>
                 <p class="opacity-75">
-                  A academia onde você não vai precisar ver casais treinando, onde focamos na saúde e no bem-estar dos nossos alunos.
+                  Força, disciplina e resultado. Aqui você treina com estrutura completa, profissionais de verdade e um ambiente que puxa o seu melhor.
                 </p>
                 <p>
                   <a class="btn btn-lg btn-primary btn-pulso" href="Cadastro_alunos.html">Matricule-se</a>
@@ -202,9 +205,9 @@
             <img src="./assets/img/slide-yoga.svg" class="carousel-img" alt="Pôr do sol sobre montanhas com uma flor de lótus" />
             <div class="container">
               <div class="carousel-caption">
-                <h1>Yoga day</h1>
+                <h1>Corpo forte, mente leve.</h1>
                 <p>
-                  Vem com a gente: aqui é onde descansamos a mente, o corpo e renovamos a vitalidade.
+                  Aulas de yoga e alongamento para equilibrar o treino pesado, recuperar o corpo e renovar a energia.
                 </p>
                 <p><a class="btn btn-lg btn-primary" href="Cadastro_alunos.html">Quero participar</a></p>
               </div>
@@ -216,7 +219,7 @@
               <div class="carousel-caption text-end">
                 <h1>Temos diversas modalidades.</h1>
                 <p>
-                  Aqui fazemos de tudo e mais um pouco para garantir a sua saúde. E, para os marombeiros, temos diversas máquinas de musculação.
+                  Musculação, calistenia, funcional, yoga e muito mais. Escolha o seu caminho e conte com a nossa equipe.
                 </p>
                 <p>
                   <a class="btn btn-lg btn-primary" href="listar_Instrutores.html">Conheça os instrutores</a>
@@ -254,10 +257,10 @@
             <img src="./assets/img/icon-calistenia.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Calistenia" />
             <h2 class="fw-normal">Calistenia</h2>
             <p>
-              Aqui é só para aqueles que não gostam de pegar pesado.
+              Domine o peso do próprio corpo com barras, argolas e muito controle.
             </p>
             <p>
-              <a class="btn btn-secondary" href="Cadastro_alunos.html">Matricule-se &raquo;</a>
+              <a class="btn btn-secondary" href="planos.html">Ver planos &raquo;</a>
             </p>
           </div>
           <!-- /.col-lg-4 -->
@@ -265,7 +268,7 @@
             <img src="./assets/img/icon-musculacao.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Musculação" />
             <h2 class="fw-normal">Musculação</h2>
             <p>
-              Para os marombeiros, só digo uma coisa: aqui você não passa sufoco.
+              Equipamentos completos e anilhas de sobra. Aqui ninguém espera na fila do supino.
             </p>
             <p>
               <a class="btn btn-secondary" href="listar_Instrutores.html">Ver instrutores &raquo;</a>
@@ -274,27 +277,45 @@
           <!-- /.col-lg-4 -->
           <div class="col-lg-4 reveal">
             <img src="./assets/img/icon-outras.svg" class="icone-modalidade" width="140" height="140" alt="Ícone de Outras modalidades" />
-            <h2 class="fw-normal">Outras</h2>
+            <h2 class="fw-normal">Bem-estar</h2>
             <p>
-              Quer explorar outras modalidades? Entre em contato com a gente.
+              Yoga, alongamento e funcional para cuidar do coração e da mente.
             </p>
             <p>
-              <a class="btn btn-secondary" href="Cadastro_alunos.html">Quero conhecer &raquo;</a>
+              <a class="btn btn-secondary" href="planos.html">Quero conhecer &raquo;</a>
             </p>
           </div>
           <!-- /.col-lg-4 -->
         </div>
         <!-- /.row -->
+        <!-- PAINEL -->
+        <hr class="featurette-divider" />
+        <section class="painel reveal" aria-labelledby="titulo-painel">
+          <div class="text-center mb-4">
+            <h2 id="titulo-painel" class="fw-bold">Painel da academia</h2>
+            <p class="text-body-secondary mb-0">Números atualizados a partir dos cadastros.</p>
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="alunos">0</span><span class="rotulo">Alunos</span></div></div>
+            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="instrutores">0</span><span class="rotulo">Instrutores</span></div></div>
+            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="semInstrutor">0</span><span class="rotulo">Alunos sem instrutor</span></div></div>
+            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="receita" data-moeda="1">0</span><span class="rotulo">Receita mensal</span></div></div>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="cartao-form h-100"><h3 class="h5 mb-3">Alunos por plano</h3><div id="grafico-planos"></div></div></div>
+            <div class="col-md-6"><div class="cartao-form h-100"><h3 class="h5 mb-3">Instrutores por turno</h3><div id="grafico-turnos"></div></div></div>
+          </div>
+        </section>
         <!-- START THE FEATURETTES -->
         <hr class="featurette-divider" />
         <div class="row featurette reveal">
           <div class="col-md-7">
             <h2 class="featurette-heading fw-normal lh-1">
-              Pode vir tranquilo!
-              <span class="text-body-secondary">Quer sossego? Aqui você consegue.</span>
+              Treine no seu ritmo.
+              <span class="text-body-secondary">Sem pressão, com foco.</span>
             </h2>
             <p class="lead">
-              Tá cansado de ver casais na academia? Aqui você vai estar livre: só aceitamos solteiros.
+              Coloque o fone, desligue o mundo e concentre-se no treino. Ambiente organizado, climatizado e com espaço de sobra para você evoluir.
             </p>
           </div>
           <div class="col-md-5">
@@ -305,11 +326,11 @@
         <div class="row featurette reveal">
           <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading fw-normal lh-1">
-              Espaço exclusivo.
-              <span class="text-body-secondary">Treine no seu ritmo.</span>
+              Sala VIP.
+              <span class="text-body-secondary">Seu espaço exclusivo.</span>
             </h2>
             <p class="lead">
-              Quer alugar um espaço só para você? Pode vir.
+              No plano Profissional você reserva a sala VIP para treinos individuais ou com o seu personal, sem dividir os aparelhos.
             </p>
           </div>
           <div class="col-md-5 order-md-1">
@@ -320,11 +341,11 @@
         <div class="row featurette reveal">
           <div class="col-md-7">
             <h2 class="featurette-heading fw-normal lh-1">
-              Posso ser personal trainer?
-              <span class="text-body-secondary">Claro!</span>
+              Quer fazer parte do time?
+              <span class="text-body-secondary">Venha ser Titan.</span>
             </h2>
             <p class="lead">
-              Faça seu cadastro em <a href="Cadastro_Instrutores.html">Cadastro de Instrutores</a> e venha fazer parte da nossa equipe.
+              É instrutor ou personal trainer? Faça seu cadastro em <a href="Cadastro_Instrutores.html">Cadastro de Instrutores</a> e venha treinar os nossos alunos.
             </p>
           </div>
           <div class="col-md-5">
