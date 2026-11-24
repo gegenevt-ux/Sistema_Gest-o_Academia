@@ -137,6 +137,8 @@ python3 -m http.server 8000
 
 Depois, abra <http://localhost:8000> no navegador. Abrir o `index.html` direto também funciona, mas com um servidor local o login usa a criptografia do navegador (Web Crypto).
 
+**Depois de mudar um CSS ou JS:** rode `python3 ferramentas/atualizar_versao.py` antes do commit. O script atualiza o código de versão dos arquivos nas páginas, para os navegadores baixarem a versão nova em vez de usar a antiga do cache.
+
 **Para testar:**
 - **App do aluno:** clique em "Ver demonstração" na página inicial, ou crie uma conta.
 - **Gestão:** clique em "Área da academia", no rodapé, e crie a senha no primeiro acesso.
@@ -164,6 +166,8 @@ Depois, abra <http://localhost:8000> no navegador. Abrir o `index.html` direto t
 │   │   ├── treino.js           App de treino do aluno
 │   │   └── color-modes.js      Tema claro/escuro
 │   └── style/                  Estilos do site
+├── ferramentas/
+│   └── atualizar_versao.py     Atualiza a versão do CSS/JS (evita cache antigo)
 └── docs/img/                   Imagens deste README
 ```
 
