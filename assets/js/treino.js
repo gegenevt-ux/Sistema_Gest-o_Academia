@@ -11,7 +11,7 @@
   let aluno = TF.alunoLogado()
   if (!aluno) { window.location.replace('entrar.html'); return }
 
-  const ICONE_CHECK = '<svg class="bi" aria-hidden="true" focusable="false"><use href="#i-check-lg"></use></svg>'
+  const ICONE_CHECK = '<svg class="bi" width="1em" height="1em" aria-hidden="true" focusable="false"><use href="#i-check-lg"></use></svg>'
 
   // ---------- Banco de exercícios ----------
   const FICHAS_BASE = {

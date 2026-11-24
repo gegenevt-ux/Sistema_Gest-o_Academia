@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Meu treino | Titan Fit</title>
-    <script src="./assets/js/color-modes.js?v=20261124b"></script>
+    <script src="./assets/js/color-modes.js?v=583d704322"></script>
     <script>document.documentElement.classList.add("js");try{var f=+localStorage.getItem("academia_fonte")||0;if(f)document.documentElement.style.fontSize=(100+f*12.5)+"%";if(localStorage.getItem("academia_alto_contraste")==="1")document.documentElement.classList.add("alto-contraste")}catch(e){}</script>
     <script>try { if (!localStorage.getItem("academia_sessao_aluno")) location.replace("entrar.html") } catch (e) { location.replace("entrar.html") }</script>
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#14161f" />
     <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
-    <link href="./assets/style/style.css?v=20261124b" rel="stylesheet" />
+    <link href="./assets/style/style.css?v=88911b43f5" rel="stylesheet" />
   </head>
   <body class="app-corpo">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none" aria-hidden="true"><symbol id="i-house-door" viewBox="0 0 16 16"><path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/></symbol><symbol id="i-clipboard2-check" viewBox="0 0 16 16"><path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
@@ -133,17 +133,17 @@
         <a href="index.html" class="d-flex align-items-center gap-2 text-white text-decoration-none fw-bold" aria-label="Titan Fit, página inicial">
           <img src="./assets/img/logo.svg" alt="" width="30" height="30" />Titan <span class="text-laranja">Fit</span>
         </a>
-        <span class="app-chama" id="chama"><svg class="bi me-1" aria-hidden="true" focusable="false"><use href="#i-fire"></use></svg><span id="chama-dias">0</span><span class="visually-hidden"> dias seguidos treinando</span></span>
+        <span class="app-chama" id="chama"><svg class="bi me-1" width="1em" height="1em" aria-hidden="true" focusable="false"><use href="#i-fire"></use></svg><span id="chama-dias">0</span><span class="visually-hidden"> dias seguidos treinando</span></span>
       </div>
     </header>
 
     <div class="app-layout">
       <nav class="app-nav" id="menu-principal" aria-label="Navegação do app">
         <div class="app-largura d-flex">
-          <button type="button" data-ir="hoje" class="ativo"><svg class="bi icone-nav" aria-hidden="true" focusable="false"><use href="#i-house-door"></use></svg>Hoje</button>
-          <button type="button" data-ir="treinos"><svg class="bi icone-nav" aria-hidden="true" focusable="false"><use href="#i-clipboard2-check"></use></svg>Treinos</button>
-          <button type="button" data-ir="progresso"><svg class="bi icone-nav" aria-hidden="true" focusable="false"><use href="#i-graph-up-arrow"></use></svg>Progresso</button>
-          <button type="button" data-ir="perfil"><svg class="bi icone-nav" aria-hidden="true" focusable="false"><use href="#i-person"></use></svg>Perfil</button>
+          <button type="button" data-ir="hoje" class="ativo"><svg class="bi icone-nav" width="1em" height="1em" aria-hidden="true" focusable="false"><use href="#i-house-door"></use></svg>Hoje</button>
+          <button type="button" data-ir="treinos"><svg class="bi icone-nav" width="1em" height="1em" aria-hidden="true" focusable="false"><use href="#i-clipboard2-check"></use></svg>Treinos</button>
+          <button type="button" data-ir="progresso"><svg class="bi icone-nav" width="1em" height="1em" aria-hidden="true" focusable="false"><use href="#i-graph-up-arrow"></use></svg>Progresso</button>
+          <button type="button" data-ir="perfil"><svg class="bi icone-nav" width="1em" height="1em" aria-hidden="true" focusable="false"><use href="#i-person"></use></svg>Perfil</button>
         </div>
       </nav>
     <main class="app-largura app-conteudo" id="conteudo" tabindex="-1">
@@ -181,7 +181,7 @@
       <!-- TREINO EM ANDAMENTO -->
       <section class="app-tela d-none" id="tela-execucao" data-tela="execucao">
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <button type="button" class="btn btn-link link-laranja px-0" id="botao-pausar"><svg class="bi me-1" aria-hidden="true" focusable="false"><use href="#i-arrow-left"></use></svg>Voltar</button>
+          <button type="button" class="btn btn-link link-laranja px-0" id="botao-pausar"><svg class="bi me-1" width="1em" height="1em" aria-hidden="true" focusable="false"><use href="#i-arrow-left"></use></svg>Voltar</button>
           <span class="cronometro" id="cronometro" aria-label="Tempo de treino">00:00</span>
         </div>
         <h1 tabindex="-1" data-titulo-tela class="h4 fw-bold mb-1" id="exec-titulo"></h1>
@@ -338,7 +338,7 @@
     <div class="comemoracao d-none" id="comemoracao" role="dialog" aria-modal="true" aria-labelledby="comemoracao-titulo" aria-describedby="comemoracao-texto">
       <div class="confete" id="confete" aria-hidden="true"></div>
       <div class="comemoracao-caixa">
-        <div class="trofeu" aria-hidden="true"><svg class="bi" aria-hidden="true" focusable="false"><use href="#i-trophy-fill"></use></svg></div>
+        <div class="trofeu" aria-hidden="true"><svg class="bi" width="1em" height="1em" aria-hidden="true" focusable="false"><use href="#i-trophy-fill"></use></svg></div>
         <h2 class="h3 fw-bold" id="comemoracao-titulo">Treino concluído!</h2>
         <p id="comemoracao-texto"></p>
         <button type="button" class="btn btn-primary btn-lg" id="comemoracao-ok">Voltar ao início</button>
@@ -347,7 +347,7 @@
 
 
     <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/app.js?v=20261124b"></script>
-    <script src="./assets/js/treino.js?v=20261124b"></script>
+    <script src="./assets/js/app.js?v=62fe3fc602"></script>
+    <script src="./assets/js/treino.js?v=dc642a9ca4"></script>
   </body>
 </html>
