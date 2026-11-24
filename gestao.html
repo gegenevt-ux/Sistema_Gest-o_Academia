@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Titan Fit: academia com app de treino para os alunos." />
+    <title>Gestão | Titan Fit</title>
+    <script src="./assets/js/color-modes.js"></script>
+    <script>document.documentElement.classList.add("js")</script>
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="theme-color" content="#ff6a1a" />
+    <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
+    <link href="./assets/style/carousel.css" rel="stylesheet" />
+    <link href="./assets/style/style.css" rel="stylesheet" />
+  </head>
+  <body data-pagina="gestao">
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="check2" viewBox="0 0 16 16">
+        <path
+          d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+        ></path>
+      </symbol>
+      <symbol id="circle-half" viewBox="0 0 16 16">
+        <path
+          d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+        ></path>
+      </symbol>
+      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+        <path
+          d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"
+        ></path>
+        <path
+          d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"
+        ></path>
+      </symbol>
+      <symbol id="sun-fill" viewBox="0 0 16 16">
+        <path
+          d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"
+        ></path>
+      </symbol>
+    </svg>
+    <div
+      class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle"
+    >
+      <button
+        class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        aria-label="Alternar tema (automático)"
+      >
+        <svg class="bi my-1 theme-icon-active" aria-hidden="true">
+          <use href="#circle-half"></use>
+        </svg>
+        <span class="visually-hidden" id="bd-theme-text">Alternar tema</span>
+      </button>
+      <ul
+        class="dropdown-menu dropdown-menu-end shadow"
+        aria-labelledby="bd-theme-text"
+      >
+        <li>
+          <button
+            type="button"
+            class="dropdown-item d-flex align-items-center"
+            data-bs-theme-value="light"
+            aria-pressed="false"
+          >
+            <svg class="bi me-2 opacity-50" aria-hidden="true">
+              <use href="#sun-fill"></use>
+            </svg>
+            Claro
+            <svg class="bi ms-auto d-none" aria-hidden="true">
+              <use href="#check2"></use>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="dropdown-item d-flex align-items-center"
+            data-bs-theme-value="dark"
+            aria-pressed="false"
+          >
+            <svg class="bi me-2 opacity-50" aria-hidden="true">
+              <use href="#moon-stars-fill"></use>
+            </svg>
+            Escuro
+            <svg class="bi ms-auto d-none" aria-hidden="true">
+              <use href="#check2"></use>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="dropdown-item d-flex align-items-center active"
+            data-bs-theme-value="auto"
+            aria-pressed="true"
+          >
+            <svg class="bi me-2 opacity-50" aria-hidden="true">
+              <use href="#circle-half"></use>
+            </svg>
+            Automático
+            <svg class="bi ms-auto d-none" aria-hidden="true">
+              <use href="#check2"></use>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+    
+
+    <header data-bs-theme="dark">
+      <nav id="nav-gestao" class="d-none navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a><span class="badge text-bg-warning me-3">Gestão</span>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item"><a class="nav-link" href="gestao.html">Painel</a></li>
+              <li class="nav-item"><a class="nav-link" href="listar_alunos.html">Alunos</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Instrutores</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="listar_Instrutores.html">Lista de Instrutores</a></li>
+                  <li><a class="dropdown-item" href="Cadastro_Instrutores.html">Cadastrar Instrutor</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex me-2" role="search" id="form-busca">
+              <input class="form-control me-2" type="search" id="campo-busca" placeholder="Buscar aluno ou instrutor" aria-label="Buscar" />
+              <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+            <button type="button" class="btn btn-outline-light" data-sair-gestao>Sair</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <header data-bs-theme="dark" id="nav-publica">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="planos.html">Planos</a></li>
+            </ul>
+            <div class="d-flex gap-2" data-visitante>
+              <a class="btn btn-outline-light" href="entrar.html">Entrar</a>
+              <a class="btn btn-primary" href="Cadastro_alunos.html">Cadastre-se</a>
+            </div>
+            <div class="d-none gap-2" data-logado>
+              <a class="btn btn-primary" href="app.html">Meu treino</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="banner-pagina">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Área da academia</h1>
+          <p class="lead mb-0">Painel e cadastros, só para a equipe da Titan Fit.</p>
+        </div>
+      </section>
+      <div class="container marketing">
+        <div id="mensagem" class="alert d-none" role="alert"></div>
+        <div id="gestao-acesso" class="row justify-content-center d-none">
+          <div class="col-md-7 col-lg-5">
+            <form id="form-gestao" class="cartao-form" novalidate>
+              <h2 class="h4 mb-1" id="gestao-titulo">Acesso da equipe</h2>
+              <p class="text-body-secondary small" id="gestao-ajuda">Digite a senha da gestão.</p>
+              <div class="mb-3">
+                <label for="senha-gestao" class="form-label">Senha da gestão</label>
+                <input type="password" class="form-control" id="senha-gestao" required minlength="6" autocomplete="current-password" />
+              </div>
+              <div class="mb-3 d-none" id="grupo-confirmar">
+                <label for="senha-gestao2" class="form-label">Confirme a senha</label>
+                <input type="password" class="form-control" id="senha-gestao2" minlength="6" autocomplete="new-password" />
+              </div>
+              <button type="submit" class="btn btn-primary w-100" id="botao-gestao">Entrar</button>
+            </form>
+          </div>
+        </div>
+        <div id="gestao-painel" class="d-none">
+          <section class="painel reveal" aria-labelledby="titulo-painel">
+          <div class="text-center mb-4">
+            <h2 id="titulo-painel" class="fw-bold">Painel da academia</h2>
+            <p class="text-body-secondary mb-0">Números atualizados a partir dos cadastros.</p>
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="alunos">0</span><span class="rotulo">Alunos</span></div></div>
+            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="instrutores">0</span><span class="rotulo">Instrutores</span></div></div>
+            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="semInstrutor">0</span><span class="rotulo">Alunos sem instrutor</span></div></div>
+            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="receita" data-moeda="1">0</span><span class="rotulo">Receita mensal</span></div></div>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="cartao-form h-100"><h3 class="h5 mb-3">Alunos por plano</h3><div id="grafico-planos"></div></div></div>
+            <div class="col-md-6"><div class="cartao-form h-100"><h3 class="h5 mb-3">Instrutores por turno</h3><div id="grafico-turnos"></div></div></div>
+          </div>
+        </section>
+          <div class="row g-3 mt-2">
+            <div class="col-md-4"><a class="atalho" href="listar_alunos.html"><strong>Alunos</strong><span>Ver, editar, excluir e exportar</span></a></div>
+            <div class="col-md-4"><a class="atalho" href="listar_Instrutores.html"><strong>Instrutores</strong><span>Equipe e alunos de cada um</span></a></div>
+            <div class="col-md-4"><a class="atalho" href="Cadastro_Instrutores.html"><strong>Novo instrutor</strong><span>Cadastrar na equipe</span></a></div>
+          </div>
+        </div>
+      </div>
+      <br />
+      
+      <!-- FOOTER -->
+      <footer class="container">
+        <p class="float-end"><a href="#">Voltar ao topo</a></p>
+        <p>&copy; 2026 Titan Fit &middot; <a href="gestao.html" class="link-secondary">Área da academia</a></p>
+      </footer>
+    </main>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>

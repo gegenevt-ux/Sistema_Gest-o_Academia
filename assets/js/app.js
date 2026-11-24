@@ -19,8 +19,13 @@
   }
   const TURNOS = ['Matutino', 'Vespertino', 'Noturno']
 
+  const SESSAO_ALUNO = 'academia_sessao_aluno' // localStorage: continua logado, como nos apps
+  const SESSAO_GESTAO = 'academia_sessao_gestao' // sessionStorage: sai ao fechar o navegador
+  const SENHA_GESTAO = 'academia_gestao_senha'
+  const chaveTreinos = idAluno => `academia_treinos_${idAluno}`
+
   const CAMPOS = {
-    alunos: ['nome', 'cpf', 'email', 'telefone', 'plano', 'instrutorId'],
+    alunos: ['nome', 'cpf', 'email', 'telefone', 'plano', 'instrutorId', 'objetivo', 'nivel'],
     instrutores: ['nome', 'especialidade', 'email', 'telefone', 'turno']
   }
 
@@ -127,6 +132,169 @@
     caixa.scrollIntoView({ behavior: reduzirMovimento() ? 'auto' : 'smooth', block: 'center' })
   }
 
+  // ---------- Contas e sessões ----------
+  // A senha nunca é guardada: guardamos só um "hash" (SHA-256) misturado com um sal aleatório.
+  async function gerarHash (senha, sal) {
+    const texto = `${sal}:${senha}`
+    if (window.crypto && window.crypto.subtle) {
+      const bytes = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto))
+      return Array.from(new Uint8Array(bytes)).map(b => b.toString(16).padStart(2, '0')).join('')
+    }
+    // Navegadores muito antigos: hash simples, só para não guardar a senha em texto.
+    let h = 2166136261
+    for (const c of texto) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619) >>> 0 }
+    return 'fnv' + h.toString(16)
+  }
+
+  async function criarSenha (senha) {
+    const sal = novoId() + novoId()
+    return { sal, hash: await gerarHash(senha, sal) }
+  }
+
+  async function conferirSenha (senha, guardada) {
+    return Boolean(guardada && guardada.sal) && (await gerarHash(senha, guardada.sal)) === guardada.hash
+  }
+
+  function alunoLogado () {
+    try {
+      const id = localStorage.getItem(SESSAO_ALUNO)
+      if (!id) return null
+      const aluno = carregar('alunos').find(a => a.id === id)
+      if (!aluno) localStorage.removeItem(SESSAO_ALUNO)
+      return aluno || null
+    } catch (erro) { return null }
+  }
+
+  function entrarComo (idAluno) {
+    localStorage.setItem(SESSAO_ALUNO, idAluno)
+    window.location.href = 'app.html'
+  }
+
+  function sairAluno () {
+    try { localStorage.removeItem(SESSAO_ALUNO) } catch (erro) {}
+    window.location.href = 'index.html'
+  }
+
+  const gestaoLogada = () => {
+    try { return sessionStorage.getItem(SESSAO_GESTAO) === 'ok' } catch (erro) { return false }
+  }
+
+  function sairGestao () {
+    try { sessionStorage.removeItem(SESSAO_GESTAO) } catch (erro) {}
+    window.location.href = 'gestao.html'
+  }
+
+  // Conta de demonstração, com histórico de exemplo, para conhecer o app sem se cadastrar.
+  async function contaDemo () {
+    const email = 'demo@titanfit.com.br'
+    const alunos = carregar('alunos')
+    let demo = alunos.find(a => a.email === email)
+    if (!demo) {
+      demo = {
+        id: 'demo-aluno',
+        nome: 'Aluno Demonstração',
+        cpf: '714.602.380-01',
+        email,
+        telefone: '(92) 99999-0000',
+        plano: 'Intermediário',
+        instrutorId: 'exemplo-i3',
+        objetivo: 'Hipertrofia',
+        nivel: 'Intermediário',
+        demo: true,
+        senha: await criarSenha(novoId())
+      }
+      alunos.push(demo)
+      salvar('alunos', alunos)
+      const dia = 86400000
+      const agora = Date.now()
+      const historico = [13, 11, 9, 6, 4, 2, 1].map((d, i) => ({
+        id: novoId(),
+        ficha: 'ABC'[i % 3],
+        inicio: agora - d * dia,
+        fim: agora - d * dia + (45 + (i % 3) * 5) * 60000,
+        series: 20 + i
+      }))
+      const pesos = [28, 21, 14, 7, 0].map((d, i) => ({ data: agora - d * dia, kg: [82.4, 81.9, 81.1, 80.6, 80.2][i] }))
+      localStorage.setItem(chaveTreinos(demo.id), JSON.stringify({ historico, pesos, emAndamento: null }))
+    }
+    entrarComo(demo.id)
+  }
+
+  function configurarEntrar (form) {
+    const botaoDemo = document.getElementById('entrar-demo')
+    if (botaoDemo) botaoDemo.addEventListener('click', () => contaDemo())
+    if (new URLSearchParams(window.location.search).get('demo') === '1') {
+      contaDemo()
+      return
+    }
+    if (alunoLogado()) { window.location.replace('app.html'); return }
+
+    form.addEventListener('submit', async evento => {
+      evento.preventDefault()
+      const email = form.elements.email.value.trim().toLowerCase()
+      const senha = form.elements.senha.value
+      const aluno = carregar('alunos').find(a => a.email === email)
+      if (aluno && !aluno.demo && await conferirSenha(senha, aluno.senha)) {
+        entrarComo(aluno.id)
+        return
+      }
+      form.elements.senha.value = ''
+      form.classList.add('tremer')
+      setTimeout(() => form.classList.remove('tremer'), 500)
+      mostrarMensagem(
+        aluno && !aluno.senha
+          ? 'Esse cadastro foi feito pela academia e ainda não tem senha. Fale com a recepção.'
+          : 'Email ou senha incorretos.',
+        'danger')
+    })
+  }
+
+  function configurarGestao () {
+    const acesso = document.getElementById('gestao-acesso')
+    const painel = document.getElementById('gestao-painel')
+    const form = document.getElementById('form-gestao')
+    const confirmar = document.getElementById('grupo-confirmar')
+    const navGestao = document.getElementById('nav-gestao')
+    const navPublica = document.getElementById('nav-publica')
+
+    const mostrarPainel = () => {
+      acesso.classList.add('d-none')
+      painel.classList.remove('d-none')
+      if (navGestao) navGestao.classList.remove('d-none')
+      if (navPublica) navPublica.classList.add('d-none')
+      configurarPainel()
+    }
+    if (gestaoLogada()) { mostrarPainel(); return }
+
+    acesso.classList.remove('d-none')
+    let guardada = null
+    try { guardada = JSON.parse(localStorage.getItem(SENHA_GESTAO) || 'null') } catch (erro) {}
+    const primeiroAcesso = !guardada
+    if (primeiroAcesso) {
+      document.getElementById('gestao-titulo').textContent = 'Primeiro acesso'
+      document.getElementById('gestao-ajuda').textContent = 'Crie a senha da gestão neste aparelho. Ela será pedida sempre que alguém abrir esta área.'
+      confirmar.classList.remove('d-none')
+      document.getElementById('botao-gestao').textContent = 'Criar senha e entrar'
+    }
+
+    form.addEventListener('submit', async evento => {
+      evento.preventDefault()
+      const senha = document.getElementById('senha-gestao').value
+      if (senha.length < 6) { mostrarMensagem('A senha precisa ter pelo menos 6 caracteres.', 'danger'); return }
+      if (primeiroAcesso) {
+        if (senha !== document.getElementById('senha-gestao2').value) { mostrarMensagem('As senhas não conferem.', 'danger'); return }
+        localStorage.setItem(SENHA_GESTAO, JSON.stringify(await criarSenha(senha)))
+      } else if (!(await conferirSenha(senha, guardada))) {
+        document.getElementById('senha-gestao').value = ''
+        mostrarMensagem('Senha incorreta.', 'danger')
+        return
+      }
+      sessionStorage.setItem(SESSAO_GESTAO, 'ok')
+      document.getElementById('mensagem').className = 'alert d-none'
+      mostrarPainel()
+    })
+  }
+
   // ---------- Formulários de cadastro e edição ----------
   function preencherInstrutores (select, selecionado = '') {
     if (!select) return
@@ -162,6 +330,21 @@
     // Modo edição (ex.: ?editar=ID)
     const idEdicao = parametros.get('editar')
     let emEdicao = null
+    // Só a equipe (gestão) pode editar o cadastro de um aluno.
+    if (idEdicao && tipo === 'alunos' && !gestaoLogada()) {
+      window.location.replace('gestao.html')
+      return
+    }
+    const cadastroPublico = tipo === 'alunos' && !idEdicao
+    const camposSenha = document.getElementById('campos-senha')
+    if (idEdicao) {
+      if (camposSenha) {
+        camposSenha.classList.add('d-none')
+        camposSenha.querySelectorAll('input').forEach(campo => { campo.required = false })
+      }
+      const link = document.getElementById('link-secundario')
+      if (link) { link.textContent = 'Voltar à lista'; link.href = nomes.pagina }
+    }
     if (idEdicao) {
       emEdicao = carregar(tipo).find(item => item.id === idEdicao) || null
       if (!emEdicao) {
@@ -186,15 +369,34 @@
         cpf.setCustomValidity('')
       })
     }
+    ;['email', 'senha2'].forEach(nome => {
+      if (form.elements[nome]) form.elements[nome].addEventListener('input', () => form.elements[nome].setCustomValidity(''))
+    })
+    if (form.elements.senha && form.elements.senha2) {
+      form.elements.senha.addEventListener('input', () => form.elements.senha2.setCustomValidity(''))
+    }
     if (telefone) {
       telefone.addEventListener('input', () => {
         telefone.value = mascaraTelefone(telefone.value)
       })
     }
 
-    form.addEventListener('submit', evento => {
+    form.addEventListener('submit', async evento => {
       evento.preventDefault()
       const lista = carregar(tipo)
+
+      if (form.elements.email) {
+        const repetido = lista.some(item => item.id !== (emEdicao && emEdicao.id) &&
+          (item.email || '').toLowerCase() === form.elements.email.value.trim().toLowerCase())
+        form.elements.email.setCustomValidity(repetido ? 'repetido' : '')
+        const aviso = form.elements.email.parentElement.querySelector('.invalid-feedback')
+        if (aviso) aviso.textContent = repetido ? 'Este email já está cadastrado. Use outro ou entre na sua conta.' : 'Informe um email válido.'
+      }
+
+      if (cadastroPublico && form.elements.senha2) {
+        const iguais = form.elements.senha.value === form.elements.senha2.value
+        form.elements.senha2.setCustomValidity(iguais ? '' : 'diferentes')
+      }
 
       if (cpf) {
         const feedback = document.getElementById('cpf-feedback')
@@ -233,7 +435,17 @@
         emEdicao = lista[indice]
         mensagem = `Dados de "${dados.nome}" atualizados com sucesso!`
       } else {
-        lista.push({ id: novoId(), ...dados })
+        const novo = { id: novoId(), ...dados }
+        if (cadastroPublico) novo.senha = await criarSenha(form.elements.senha.value)
+        lista.push(novo)
+        if (cadastroPublico) {
+          if (!salvar(tipo, lista)) {
+            mostrarMensagem('Não foi possível salvar. Verifique se o navegador permite armazenamento local.', 'danger')
+            return
+          }
+          entrarComo(novo.id)
+          return
+        }
         mensagem = `${nomes.titulo} "${dados.nome}" cadastrado com sucesso!`
       }
 
@@ -297,6 +509,12 @@
     if (!window.confirm(aviso)) return false
 
     salvar(tipo, carregar(tipo).filter(outro => outro.id !== item.id))
+    if (tipo === 'alunos') {
+      try {
+        localStorage.removeItem(chaveTreinos(item.id))
+        if (localStorage.getItem(SESSAO_ALUNO) === item.id) localStorage.removeItem(SESSAO_ALUNO)
+      } catch (erro) {}
+    }
     if (alunosVinculados.length) {
       salvar('alunos', carregar('alunos').map(a => a.instrutorId === item.id ? { ...a, instrutorId: '' } : a))
     }
@@ -570,6 +788,23 @@
       if (botaoExportar) botaoExportar.addEventListener('click', () => exportarCSV(tabela))
     }
 
-    configurarPainel()
+    const formEntrar = document.getElementById('form-entrar')
+    if (formEntrar) configurarEntrar(formEntrar)
+
+    if (document.body.dataset.pagina === 'gestao') configurarGestao()
+
+    document.querySelectorAll('[data-sair-gestao]').forEach(botao => botao.addEventListener('click', sairGestao))
+
+    // Menu público: mostra "Meu treino" para quem já está logado.
+    if (alunoLogado()) {
+      document.querySelectorAll('[data-visitante]').forEach(el => el.classList.add('d-none'))
+      document.querySelectorAll('[data-logado]').forEach(el => { el.classList.remove('d-none'); el.classList.add('d-flex') })
+    }
   })
+
+  // Funções usadas também pelo app de treino (treino.js).
+  window.TitanFit = {
+    carregar, salvar, alunoLogado, sairAluno, chaveTreinos, PLANOS,
+    mapaInstrutores, mostrarMensagem, reduzirMovimento, formatarMoeda, plural, novoId
+  }
 })()
