@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Sistema de gestão da Titan Fit: cadastro e listagem de alunos e instrutores." />
-    <title>Sistema de Gestão Academia</title>
+    <meta name="description" content="Titan Fit: academia com app de treino para os alunos." />
+    <title>Titan Fit | Academia e app de treino</title>
     <script src="./assets/js/color-modes.js"></script>
     <script>document.documentElement.classList.add("js")</script>
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -12,7 +12,6 @@
     <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
     <link href="./assets/style/carousel.css" rel="stylesheet" />
     <link href="./assets/style/style.css" rel="stylesheet" />
-
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -110,59 +109,32 @@
         </li>
       </ul>
     </div>
+    
     <header data-bs-theme="dark">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse"
-            aria-expanded="false"
-            aria-label="Abrir menu"
-          >
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="planos.html">Planos</a>
-              </li>
-             <!---Começo do menu dropdown-->
-              <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Alunos
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cadastro_alunos.html">Cadastro de Alunos</a></li>
-            <li><a class="dropdown-item" href="listar_alunos.html">Listar Alunos</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Instrutores
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cadastro_Instrutores.html">Cadastro de Instrutores</a></li>
-            <li><a class="dropdown-item" href="listar_Instrutores.html">Lista de Instrutores</a></li>
-          </ul>
-        </li>
-
-        <!---Fim do menu dropdown-->
-        <form class="d-flex" role="search" id="form-busca">
-        <input class="form-control me-2" type="search" id="campo-busca" placeholder="Buscar aluno ou instrutor" aria-label="Buscar"/>
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
+              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="planos.html">Planos</a></li>
+            </ul>
+            <div class="d-flex gap-2" data-visitante>
+              <a class="btn btn-outline-light" href="entrar.html">Entrar</a>
+              <a class="btn btn-primary" href="Cadastro_alunos.html">Cadastre-se</a>
+            </div>
+            <div class="d-none gap-2" data-logado>
+              <a class="btn btn-primary" href="app.html">Meu treino</a>
+            </div>
           </div>
         </div>
       </nav>
     </header>
     <main>
+
       <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button
@@ -191,12 +163,13 @@
             <img src="./assets/img/slide-forca.svg" class="carousel-img" alt="Barra olímpica com anilhas" />
             <div class="container">
               <div class="carousel-caption text-start">
-                <h1>Titan Fit</h1>
+                <h1>Quer fazer parte da Titan Fit?</h1>
                 <p class="opacity-75">
-                  Força, disciplina e resultado. Aqui você treina com estrutura completa, profissionais de verdade e um ambiente que puxa o seu melhor.
+                  Cadastre-se e ganhe acesso ao app de treino: ficha pronta para o seu objetivo, timer de descanso e acompanhamento da sua evolução.
                 </p>
                 <p>
-                  <a class="btn btn-lg btn-primary btn-pulso" href="Cadastro_alunos.html">Matricule-se</a>
+                  <a class="btn btn-lg btn-primary btn-pulso" href="Cadastro_alunos.html">Cadastre-se</a>
+                  <a class="btn btn-lg btn-outline-light ms-2" href="entrar.html">Já sou aluno</a>
                 </p>
               </div>
             </div>
@@ -222,7 +195,7 @@
                   Musculação, calistenia, funcional, yoga e muito mais. Escolha o seu caminho e conte com a nossa equipe.
                 </p>
                 <p>
-                  <a class="btn btn-lg btn-primary" href="listar_Instrutores.html">Conheça os instrutores</a>
+                  <a class="btn btn-lg btn-primary" href="planos.html">Ver planos</a>
                 </p>
               </div>
             </div>
@@ -271,7 +244,7 @@
               Equipamentos completos e anilhas de sobra. Aqui ninguém espera na fila do supino.
             </p>
             <p>
-              <a class="btn btn-secondary" href="listar_Instrutores.html">Ver instrutores &raquo;</a>
+              <a class="btn btn-secondary" href="Cadastro_alunos.html">Começar agora &raquo;</a>
             </p>
           </div>
           <!-- /.col-lg-4 -->
@@ -288,22 +261,41 @@
           <!-- /.col-lg-4 -->
         </div>
         <!-- /.row -->
-        <!-- PAINEL -->
+        <!-- APP -->
         <hr class="featurette-divider" />
-        <section class="painel reveal" aria-labelledby="titulo-painel">
-          <div class="text-center mb-4">
-            <h2 id="titulo-painel" class="fw-bold">Painel da academia</h2>
-            <p class="text-body-secondary mb-0">Números atualizados a partir dos cadastros.</p>
+        <section class="row align-items-center g-4 g-lg-5 reveal" aria-labelledby="titulo-app">
+          <div class="col-lg-6">
+            <span class="badge rounded-pill text-bg-warning mb-3">App do aluno</span>
+            <h2 id="titulo-app" class="display-6 fw-bold">Seu treino no bolso.</h2>
+            <p class="lead">Ao se cadastrar você entra no app da Titan Fit, que funciona no celular e no computador.</p>
+            <ul class="lista-recursos">
+              <li><strong>Treino do dia</strong> montado para o seu objetivo e nível.</li>
+              <li><strong>Marque cada série</strong> e use o timer de descanso automático.</li>
+              <li><strong>Acompanhe sua evolução</strong>: sequência de dias, treinos por semana e peso.</li>
+              <li><strong>Seus dados são só seus</strong>: ficam guardados no seu aparelho.</li>
+            </ul>
+            <div class="d-flex flex-wrap gap-2 mt-4">
+              <a class="btn btn-lg btn-primary" href="Cadastro_alunos.html">Criar minha conta</a>
+              <a class="btn btn-lg btn-outline-secondary" href="entrar.html?demo=1">Ver demonstração</a>
+            </div>
           </div>
-          <div class="row g-3 mb-4">
-            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="alunos">0</span><span class="rotulo">Alunos</span></div></div>
-            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="instrutores">0</span><span class="rotulo">Instrutores</span></div></div>
-            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="semInstrutor">0</span><span class="rotulo">Alunos sem instrutor</span></div></div>
-            <div class="col-6 col-lg-3"><div class="cartao-numero"><span class="numero" data-contar="receita" data-moeda="1">0</span><span class="rotulo">Receita mensal</span></div></div>
-          </div>
-          <div class="row g-3">
-            <div class="col-md-6"><div class="cartao-form h-100"><h3 class="h5 mb-3">Alunos por plano</h3><div id="grafico-planos"></div></div></div>
-            <div class="col-md-6"><div class="cartao-form h-100"><h3 class="h5 mb-3">Instrutores por turno</h3><div id="grafico-turnos"></div></div></div>
+          <div class="col-lg-6">
+            <div class="celular mx-auto" aria-hidden="true">
+              <div class="celular-tela">
+                <div class="mini-topo"><span>Olá, Mariana 👋</span><span class="mini-chama">🔥 5</span></div>
+                <div class="mini-cartao destaque-mini">
+                  <small>Treino de hoje</small>
+                  <strong>Treino B · Costas e Bíceps</strong>
+                  <div class="mini-barra"><span style="width:60%"></span></div>
+                  <small>6 exercícios · ~50 min</small>
+                </div>
+                <div class="mini-cartao"><span class="mini-check feito">✓</span>Puxada frontal <em>4 × 10</em></div>
+                <div class="mini-cartao"><span class="mini-check feito">✓</span>Remada curvada <em>4 × 10</em></div>
+                <div class="mini-cartao"><span class="mini-check">2/4</span>Remada baixa <em>4 × 12</em></div>
+                <div class="mini-timer"><span>Descanso</span><strong>0:45</strong></div>
+                <div class="mini-nav"><span class="ativo">Hoje</span><span>Treinos</span><span>Progresso</span><span>Perfil</span></div>
+              </div>
+            </div>
           </div>
         </section>
         <!-- START THE FEATURETTES -->
@@ -345,7 +337,7 @@
               <span class="text-body-secondary">Venha ser Titan.</span>
             </h2>
             <p class="lead">
-              É instrutor ou personal trainer? Faça seu cadastro em <a href="Cadastro_Instrutores.html">Cadastro de Instrutores</a> e venha treinar os nossos alunos.
+              É instrutor ou personal trainer? Mande seu currículo para <a href="mailto:contato@titanfit.com.br">contato@titanfit.com.br</a> e venha treinar os nossos alunos.
             </p>
           </div>
           <div class="col-md-5">
@@ -356,12 +348,20 @@
         <!-- /END THE FEATURETTES -->
       </div>
       <!-- /.container -->
+      <section class="faixa-cta reveal">
+        <div class="container text-center">
+          <h2 class="display-6 fw-bold">Quer fazer parte da Titan Fit?</h2>
+          <p class="lead">Cadastre-se em menos de 2 minutos e comece a treinar hoje.</p>
+          <a class="btn btn-lg btn-primary btn-pulso" href="Cadastro_alunos.html">Cadastre-se</a>
+          <a class="btn btn-lg btn-outline-light ms-2" href="planos.html">Conhecer os planos</a>
+        </div>
+      </section>
+      
+      
       <!-- FOOTER -->
       <footer class="container">
         <p class="float-end"><a href="#">Voltar ao topo</a></p>
-        <p>
-          &copy; 2026 Titan Fit
-        </p>
+        <p>&copy; 2026 Titan Fit &middot; <a href="gestao.html" class="link-secondary">Área da academia</a></p>
       </footer>
     </main>
     <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>

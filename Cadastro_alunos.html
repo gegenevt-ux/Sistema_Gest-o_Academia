@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Sistema de gestão da Titan Fit: cadastro e listagem de alunos e instrutores." />
-    <title>Sistema de Gestão Academia</title>
+    <meta name="description" content="Titan Fit: academia com app de treino para os alunos." />
+    <title>Cadastre-se | Titan Fit</title>
     <script src="./assets/js/color-modes.js"></script>
     <script>document.documentElement.classList.add("js")</script>
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -12,7 +12,6 @@
     <link rel="icon" href="./assets/img/logo.svg" type="image/svg+xml" />
     <link href="./assets/style/carousel.css" rel="stylesheet" />
     <link href="./assets/style/style.css" rel="stylesheet" />
-
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -110,64 +109,35 @@
         </li>
       </ul>
     </div>
+    
     <header data-bs-theme="dark">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="./assets/img/logo.svg" alt="" width="34" height="34" class="logo-marca" />Titan <span class="text-laranja">Fit</span></a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse"
-            aria-expanded="false"
-            aria-label="Abrir menu"
-          >
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="planos.html">Planos</a>
-              </li>
-             <!---Começo do menu dropdown-->
-              <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Alunos
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cadastro_alunos.html">Cadastro de Alunos</a></li>
-            <li><a class="dropdown-item" href="listar_alunos.html">Listar Alunos</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Instrutores
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cadastro_Instrutores.html">Cadastro de Instrutores</a></li>
-            <li><a class="dropdown-item" href="listar_Instrutores.html">Lista de Instrutores</a></li>
-          </ul>
-        </li>
-
-        <!---Fim do menu dropdown-->
-        <form class="d-flex" role="search" id="form-busca">
-        <input class="form-control me-2" type="search" id="campo-busca" placeholder="Buscar aluno ou instrutor" aria-label="Buscar"/>
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
+              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="planos.html">Planos</a></li>
+            </ul>
+            <div class="d-flex gap-2" data-visitante>
+              <a class="btn btn-outline-light" href="entrar.html">Entrar</a>
+              <a class="btn btn-primary" href="Cadastro_alunos.html">Cadastre-se</a>
+            </div>
+            <div class="d-none gap-2" data-logado>
+              <a class="btn btn-primary" href="app.html">Meu treino</a>
+            </div>
           </div>
         </div>
       </nav>
     </header>
     <main>
-     
       <section class="banner-pagina">
         <div class="container">
-          <h1 class="display-5 fw-bold">Cadastro do Aluno</h1>
-          <p class="lead mb-0">Comece hoje a sua evolução na Titan Fit.</p>
+          <h1 class="display-5 fw-bold">Quer fazer parte da Titan Fit?</h1>
+          <p class="lead mb-0">Crie sua conta e ganhe acesso ao app de treino.</p>
         </div>
       </section>
       <div class="container marketing">
@@ -210,18 +180,50 @@
               <option value="">Sem instrutor</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary" id="botao-salvar">Cadastrar</button>
-          <a href="listar_alunos.html" class="btn btn-outline-secondary ms-2">Ver alunos cadastrados</a>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label for="objetivo" class="form-label">Seu objetivo</label>
+              <select class="form-select" id="objetivo" name="objetivo" required>
+                <option value="" selected disabled>Escolha</option>
+                <option>Hipertrofia</option>
+                <option>Emagrecimento</option>
+                <option>Condicionamento</option>
+              </select>
+              <div class="invalid-feedback">Escolha o seu objetivo.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="nivel" class="form-label">Seu nível</label>
+              <select class="form-select" id="nivel" name="nivel" required>
+                <option value="" selected disabled>Escolha</option>
+                <option>Iniciante</option>
+                <option>Intermediário</option>
+                <option>Avançado</option>
+              </select>
+              <div class="invalid-feedback">Escolha o seu nível.</div>
+            </div>
+          </div>
+          <div class="row g-3 mb-4" id="campos-senha">
+            <div class="col-md-6">
+              <label for="senha" class="form-label">Crie uma senha</label>
+              <input type="password" class="form-control" id="senha" name="senha" required minlength="6" autocomplete="new-password" />
+              <div class="invalid-feedback">A senha precisa ter pelo menos 6 caracteres.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="senha2" class="form-label">Confirme a senha</label>
+              <input type="password" class="form-control" id="senha2" name="senha2" required minlength="6" autocomplete="new-password" />
+              <div class="invalid-feedback" id="senha2-feedback">As senhas não conferem.</div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" id="botao-salvar">Criar minha conta</button>
+          <a href="entrar.html" class="btn btn-link" id="link-secundario">Já tenho conta</a>
         </form>
       </div>
       <br />
-      <!-- /.container -->
+      
       <!-- FOOTER -->
       <footer class="container">
         <p class="float-end"><a href="#">Voltar ao topo</a></p>
-        <p>
-          &copy; 2026 Titan Fit
-        </p>
+        <p>&copy; 2026 Titan Fit &middot; <a href="gestao.html" class="link-secondary">Área da academia</a></p>
       </footer>
     </main>
     <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>

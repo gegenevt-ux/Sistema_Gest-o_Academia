@@ -2,29 +2,35 @@
 
 Site da **Titan Fit**, feito com HTML, Bootstrap 5 e JavaScript puro.
 
-## Páginas
+## Como o site está organizado
+
+**Parte pública** (qualquer visitante)
 
 | Página | Arquivo |
 | --- | --- |
-| Início (com painel) | `index.html` |
+| Início, com "Quer fazer parte da Titan Fit? Cadastre-se" | `index.html` |
 | Planos | `planos.html` |
-| Cadastro de alunos | `Cadastro_alunos.html` |
-| Lista de alunos | `listar_alunos.html` |
-| Cadastro de instrutores | `Cadastro_Instrutores.html` |
-| Lista de instrutores | `listar_Instrutores.html` |
+| Cadastro do aluno (cria a conta com senha) | `Cadastro_alunos.html` |
+| Entrar (login e conta de demonstração) | `entrar.html` |
 
-## Funcionalidades
+**App do aluno** (só depois de entrar): `app.html`
 
-- Cadastro de alunos (nome, CPF, email, telefone e plano) e de instrutores (nome, especialidade, email, telefone e turno).
-- Validação dos campos, máscara de CPF e telefone, verificação de CPF válido e de CPF repetido.
-- Edição de cadastros pelo botão "Editar" nas listas.
-- Aluno pode ter um instrutor responsável. A lista de instrutores mostra quantos alunos cada um acompanha, e ao excluir um instrutor os alunos dele ficam "Sem instrutor".
-- Listagem com busca (pelo campo do menu), botão para excluir e exportação para planilha (CSV, abre direto no Excel).
-- Painel na página inicial: total de alunos e instrutores, alunos sem instrutor, receita mensal estimada e gráficos por plano e por turno.
-- Página de planos com preços; o botão de cada plano já abre o cadastro com o plano escolhido.
-- Os dados ficam salvos no próprio navegador (`localStorage`). Na primeira vez que o site abre, ele já vem com 3 alunos e 3 instrutores de exemplo.
-- Tema claro, escuro ou automático (botão no canto inferior direito).
-- Ilustrações próprias em SVG (logo, carrossel, modalidades e destaques) e animações: zoom no carrossel, elementos que aparecem ao rolar, efeitos ao passar o mouse, linhas da tabela entrando e saindo. Quem ativa "reduzir movimento" no sistema não vê as animações.
+- **Hoje:** treino do dia (divisão ABC), sequência de dias 🔥, treinos da semana e histórico.
+- **Treino em andamento:** marque cada série; o timer de descanso começa sozinho (com som e vibração), e no fim tem comemoração. Se fechar a página, o treino continua de onde parou.
+- **Treinos:** fichas A, B e C montadas para o objetivo (hipertrofia, emagrecimento ou condicionamento) e o nível do aluno.
+- **Progresso:** gráfico de treinos por semana e evolução do peso.
+- **Perfil:** dados (CPF mascarado), ajuste de objetivo e nível, sair e excluir conta.
+
+**Gestão** (só a equipe, com senha): `gestao.html`, `listar_alunos.html`, `listar_Instrutores.html`, `Cadastro_Instrutores.html`
+
+- Painel com números e gráficos, listas com busca, edição, exclusão e exportação em CSV, cadastro de instrutores.
+- No primeiro acesso de cada aparelho, a equipe cria a senha da gestão. O acesso fica no link "Área da academia", no rodapé.
+
+## Privacidade e limites
+
+- As senhas não são guardadas: o site guarda só um hash SHA-256 com sal.
+- Os dados ficam no navegador (`localStorage`) de cada aparelho. Ninguém vê os dados de outra pessoa pela internet, mas também não há sincronização entre aparelhos.
+- Como o site é estático (GitHub Pages, sem servidor), as senhas servem para separar as áreas no mesmo aparelho, e não substituem a segurança de um servidor. Para um sistema real com vários usuários, o próximo passo é um back-end (por exemplo, Firebase ou Supabase) com login no servidor.
 
 ## Como rodar
 
@@ -44,7 +50,8 @@ assets/
   dist/       Bootstrap (CSS e JS)
   img/        ilustrações e logo (SVG)
   js/
-    app.js          lógica de cadastro, listagem e busca
+    app.js          contas, cadastros, listas, busca, painel e gestão
+    treino.js       app de treino do aluno
     color-modes.js  troca de tema claro/escuro
   style/      estilos do site
 ```
