@@ -304,7 +304,7 @@ a:hover { color: var(--tf-laranja-escuro); }
 .lista-recursos { list-style: none; padding: 0; }
 .lista-recursos li { position: relative; padding: .45rem 0 .45rem 2rem; }
 .lista-recursos li::before {
-  content: "✓"; position: absolute; left: 0; top: .45rem;
+  content: ""; position: absolute; left: 0; top: .45rem;
   width: 1.4rem; height: 1.4rem; border-radius: 50%;
   display: grid; place-items: center; font-size: .8rem; font-weight: 800;
   color: #fff; background: var(--tf-gradiente);
@@ -380,9 +380,9 @@ a:hover { color: var(--tf-laranja-escuro); }
   padding: .55rem 0 .65rem; border: 0; background: none; font-size: .75rem; color: var(--bs-secondary-color);
   transition: color .2s ease, transform .2s ease;
 }
-.app-nav button span { font-size: 1.3rem; filter: grayscale(1); opacity: .7; transition: filter .2s, opacity .2s, transform .2s; }
+.app-nav .icone-nav { width: 1.35rem; height: 1.35rem; transition: transform .2s; }
 .app-nav button.ativo { color: var(--tf-texto); font-weight: 700; }
-.app-nav button.ativo span { filter: none; opacity: 1; transform: translateY(-2px) scale(1.1); }
+.app-nav button.ativo .icone-nav { transform: translateY(-2px); }
 .app-corpo .bd-mode-toggle { bottom: 4.5rem !important; }
 .cartao-treino-dia {
   padding: 1.5rem; border-radius: 1.5rem; color: #fff;
@@ -416,7 +416,10 @@ a:hover { color: var(--tf-laranja-escuro); }
   animation: subir .4s ease both; transition: border-color .3s ease, opacity .3s ease;
 }
 .cartao-exercicio.concluido { border-color: rgba(25, 135, 84, .5); opacity: .75; }
-.cartao-exercicio.concluido strong::after { content: " ✓"; color: #198754; }
+.cartao-exercicio.concluido strong::after {
+  content: ""; display: inline-block; width: 1em; height: 1em; margin-left: .35rem; vertical-align: -.125em;
+  background: #198754; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 .series { display: flex; flex-wrap: wrap; gap: .5rem; }
 .serie {
   width: 2.75rem; height: 2.75rem; border-radius: 50%; font-weight: 700;
@@ -540,13 +543,11 @@ body { color: var(--bs-body-color); }
 /* App do aluno no escuro */
 [data-bs-theme="dark"] .app-corpo { background: var(--tf-fundo-app); }
 [data-bs-theme="dark"] .app-nav { background: #161922; border-top-color: var(--tf-borda); box-shadow: 0 -.25rem 1.5rem rgba(0, 0, 0, .5); }
-[data-bs-theme="dark"] .app-nav button span { filter: grayscale(1) brightness(1.6); }
-[data-bs-theme="dark"] .app-nav button.ativo span { filter: none; }
 [data-bs-theme="dark"] .dia i { background: var(--tf-fundo-cartao); border-color: rgba(255, 255, 255, .18); }
 [data-bs-theme="dark"] .barra-semana { background: rgba(255, 140, 60, .45); }
 [data-bs-theme="dark"] .grafico-linha circle { fill: var(--tf-fundo-cartao); }
 [data-bs-theme="dark"] .cartao-exercicio.concluido { border-color: rgba(60, 200, 130, .55); }
-[data-bs-theme="dark"] .cartao-exercicio.concluido strong::after { color: #3cc882; }
+[data-bs-theme="dark"] .cartao-exercicio.concluido strong::after { background: #3cc882; }
 [data-bs-theme="dark"] .badge.text-bg-secondary { background-color: #3a4052 !important; color: #e9edf5 !important; }
 [data-bs-theme="dark"] .nav-pills .nav-link:not(.active):hover { background: rgba(255, 106, 26, .12); }
 [data-bs-theme="dark"] .dia.feito i { background: var(--tf-gradiente); border-color: transparent; }
@@ -688,3 +689,117 @@ kbd { color: #fff; }
 .mini-check { color: #9a3412; border-color: #9a3412; }
 [data-bs-theme="dark"] .mini-check { color: #ffb37a; border-color: #ffb37a; }
 .mini-check.feito { color: #fff; border-color: transparent; }
+
+
+/* Ícones (Bootstrap Icons) */
+.bi { display: inline-block; width: 1em; height: 1em; vertical-align: -.125em; fill: currentColor; flex-shrink: 0; }
+.lista-recursos li::before { background: var(--tf-gradiente); -webkit-mask: none; }
+.lista-recursos li::after {
+  content: ""; position: absolute; left: .35rem; top: .8rem; width: .7rem; height: .7rem; background: #fff;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.lista-plano .check { color: var(--tf-texto); margin-right: .5rem; }
+.mini-check .bi { width: .8rem; height: .8rem; }
+.dia i .bi { width: 1.1rem; height: 1.1rem; }
+.serie .bi { width: 1.2rem; height: 1.2rem; }
+.trofeu {
+  width: 6rem; height: 6rem; margin: 0 auto 1rem; border-radius: 50%;
+  display: grid; place-items: center; color: #fff; background: var(--tf-gradiente);
+  box-shadow: 0 1rem 2.5rem rgba(194, 65, 12, .45);
+}
+.trofeu .bi { width: 2.75rem; height: 2.75rem; }
+.app-chama, .mini-chama { display: inline-flex; align-items: center; }
+.alto-contraste .lista-recursos li::after { background: #000 !important; }
+.alto-contraste .trofeu { background: #ffff00 !important; color: #000 !important; }
+
+
+/* =========================================================
+   Layout responsivo: celular, tablet e computador
+   ========================================================= */
+/* Barra de acessibilidade compacta no celular: uma linha só;
+   os atalhos "Ir para..." aparecem quando recebem foco (teclado/leitor de tela). */
+@media (max-width: 767.98px) {
+  .barra-acessibilidade .container-fluid { justify-content: flex-end !important; flex-wrap: nowrap !important; }
+  .barra-acessibilidade .atalhos { padding: 0; margin: 0; }
+  .barra-acessibilidade .atalhos a {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .barra-acessibilidade .atalhos a:focus {
+    position: fixed; top: .5rem; left: .5rem; width: auto; height: auto; clip: auto; z-index: 3000;
+    padding: .6rem 1rem; border-radius: .5rem; background: #0b0c10; color: #fff;
+  }
+  .barra-acessibilidade .ajustes { flex-wrap: nowrap; gap: .4rem; padding: .3rem 0; overflow-x: auto; }
+  .barra-acessibilidade .ajustes li { flex-shrink: 0; }
+  /* botão de tema flutuante menor nas páginas públicas */
+  .bd-mode-toggle .btn { padding: .3rem .5rem !important; }
+  .carousel-caption h1, .carousel-caption .h1 { font-size: 1.75rem; }
+  .carousel-caption p { font-size: 1rem; }
+  .banner-pagina { padding: 2rem 0; }
+  .banner-pagina h1 { font-size: 2rem; }
+  .cartao-form { padding: 1.25rem; }
+}
+
+/* App: no celular e no tablet o tema fica no Perfil (sem botão flutuando sobre o conteúdo) */
+@media (max-width: 991.98px) {
+  .app-corpo .bd-mode-toggle { display: none !important; }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .app-conteudo.app-largura, .app-nav .app-largura, .app-topo .app-largura { max-width: 720px; }
+}
+
+/* App no computador: menu lateral e conteúdo em colunas */
+@media (min-width: 992px) {
+  .app-corpo { padding-bottom: 2rem; }
+  .app-topo .app-largura { max-width: 1240px; padding-left: 1.5rem; padding-right: 1.5rem; }
+  .app-layout { display: flex; align-items: flex-start; gap: 2rem; max-width: 1240px; margin: 0 auto; padding: 0 1.5rem; }
+  .app-nav {
+    position: sticky; top: 4.5rem; left: auto; right: auto; bottom: auto; z-index: 1;
+    width: 230px; flex-shrink: 0; margin-top: 1.5rem; padding: .5rem;
+    border: 1px solid var(--bs-border-color-translucent); border-radius: 1rem; box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .05);
+  }
+  .app-nav .app-largura { flex-direction: column; gap: .25rem; max-width: none; padding: 0; }
+  .app-nav button {
+    flex: none; flex-direction: row; justify-content: flex-start; gap: .75rem;
+    padding: .7rem 1rem; border-radius: .7rem; font-size: 1rem; text-align: left;
+  }
+  .app-nav button:hover { background: rgba(127, 127, 127, .1); color: var(--bs-body-color); }
+  .app-nav button.ativo { background: rgba(194, 65, 12, .1); }
+  [data-bs-theme="dark"] .app-nav button.ativo { background: rgba(255, 138, 76, .14); }
+  .app-nav button.ativo .icone-nav { transform: none; }
+  .app-conteudo.app-largura { flex: 1; min-width: 0; max-width: none; padding: 1.5rem 0 1rem; }
+  .hoje-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  .grade-2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  #exec-exercicios { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  #exec-exercicios .cartao-exercicio { margin-bottom: 0; }
+  #tela-execucao .d-grid { grid-template-columns: repeat(2, minmax(0, 260px)); }
+  #tela-treinos #ficha-detalhe { max-width: 720px; }
+  .cartao-treino-dia { padding: 2rem; min-height: 230px; display: flex; flex-direction: column; justify-content: center; }
+  .grafico-semanas { height: 220px; }
+  .app-corpo [vw].enabled { bottom: auto !important; }
+}
+@media (min-width: 1400px) {
+  #exec-exercicios { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Texto sempre legível sobre as ilustrações */
+.cartao-treino-dia {
+  background:
+    linear-gradient(90deg, rgba(13, 15, 23, .96) 0%, rgba(13, 15, 23, .85) 45%, rgba(13, 15, 23, .25) 100%),
+    #14161f url("../img/slide-forca.svg") 75% center / cover;
+}
+.cartao-treino-dia .btn { align-self: flex-start; }
+@media (max-width: 767.98px) {
+  .carousel-img { object-position: 72% center; }
+  .carousel-item::after { background: linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, .75)); }
+  .carousel-pausa { top: .75rem; bottom: auto; right: .75rem; font-size: .8rem; padding: .25rem .65rem; }
+  .carousel-caption { left: 8%; right: 8%; bottom: 2.5rem; }
+  .cartao-treino-dia {
+    background:
+      linear-gradient(180deg, rgba(13, 15, 23, .9), rgba(13, 15, 23, .97)),
+      #14161f url("../img/slide-forca.svg") 75% center / cover;
+  }
+}
+@media (min-width: 992px) {
+  .app-nav button.ativo { color: #9a3412; }
+  [data-bs-theme="dark"] .app-nav button.ativo { color: #ffb37a; }
+}

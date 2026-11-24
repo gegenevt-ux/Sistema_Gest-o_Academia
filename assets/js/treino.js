@@ -11,6 +11,8 @@
   let aluno = TF.alunoLogado()
   if (!aluno) { window.location.replace('entrar.html'); return }
 
+  const ICONE_CHECK = '<svg class="bi" aria-hidden="true" focusable="false"><use href="#i-check-lg"></use></svg>'
+
   // ---------- Banco de exercícios ----------
   const FICHAS_BASE = {
     A: {
@@ -144,7 +146,7 @@
   function desenharHoje () {
     const hora = new Date().getHours()
     const cumprimento = hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite'
-    document.getElementById('saudacao').textContent = `${cumprimento}, ${aluno.nome.split(' ')[0]}! 👋`
+    document.getElementById('saudacao').textContent = `${cumprimento}, ${aluno.nome.split(' ')[0]}`
     document.getElementById('resumo-plano').textContent = `Plano ${aluno.plano} · ${aluno.objetivo || 'Hipertrofia'} · ${aluno.nivel || 'Intermediário'}`
 
     const ficha = montarFicha(proximaFicha())
@@ -177,7 +179,7 @@
       const dia = semana + i * DIA
       const bolinha = document.createElement('div')
       bolinha.className = 'dia' + (dias.has(dia) ? ' feito' : '') + (dia === inicioDoDia(Date.now()) ? ' hoje' : '')
-      bolinha.innerHTML = `<span>${letra}</span><i aria-hidden="true">${dias.has(dia) ? '✓' : ''}</i>`
+      bolinha.innerHTML = `<span>${letra}</span><i aria-hidden="true">${dias.has(dia) ? ICONE_CHECK : ''}</i>`
       bolinha.title = new Date(dia).toLocaleDateString('pt-BR') + (dias.has(dia) ? ': treinou' : '')
       caixaSemana.appendChild(bolinha)
     })
@@ -251,7 +253,7 @@
         const b = document.createElement('button')
         b.type = 'button'
         b.className = 'serie' + (s < andamento.feitas[i] ? ' feita' : '')
-        b.textContent = s < andamento.feitas[i] ? '✓' : String(s + 1)
+        if (s < andamento.feitas[i]) b.innerHTML = ICONE_CHECK; else b.textContent = String(s + 1)
         b.setAttribute('aria-label', `${ex.nome}, série ${s + 1} de ${ex.series}`)
         b.setAttribute('aria-pressed', String(s < andamento.feitas[i]))
         b.addEventListener('click', () => marcarSerie(i, s, ficha))
@@ -411,7 +413,7 @@
     const dias = sequenciaDias()
     document.getElementById('comemoracao-texto').textContent =
       `${TF.plural(registro.series, 'série', 'séries')} em ${minutos} min. ` +
-      (dias > 1 ? `Você está há ${dias} dias seguidos treinando! 🔥` : 'Volte amanhã para começar uma sequência! 🔥')
+      (dias > 1 ? `Você está há ${dias} dias seguidos treinando.` : 'Volte amanhã para começar uma sequência.')
     soltarConfete()
     abrirSobreposicao(document.getElementById('comemoracao'), document.getElementById('comemoracao-ok'))
   }
@@ -693,6 +695,20 @@
     setTimeout(() => URL.revokeObjectURL(link.href), 1000)
     anunciar('Arquivo com os seus dados baixado.')
   })
+
+  // Tema escolhido no perfil (no celular, o botão flutuante de tema fica escondido)
+  function marcarTemaPerfil () {
+    let tema = 'auto'
+    try { tema = localStorage.getItem('theme') || 'auto' } catch (erro) {}
+    document.querySelectorAll('[data-tema-perfil]').forEach(b => {
+      const ativo = b.dataset.bsThemeValue === tema
+      b.classList.toggle('active', ativo)
+      b.setAttribute('aria-pressed', String(ativo))
+    })
+  }
+  document.querySelectorAll('[data-tema-perfil]').forEach(b => b.addEventListener('click', () => setTimeout(marcarTemaPerfil, 0)))
+  document.querySelectorAll('.bd-mode-toggle [data-bs-theme-value]').forEach(b => b.addEventListener('click', () => setTimeout(marcarTemaPerfil, 0)))
+  marcarTemaPerfil()
 
   document.getElementById('botao-sair').addEventListener('click', () => TF.sairAluno())
   document.getElementById('botao-excluir-conta').addEventListener('click', () => {
